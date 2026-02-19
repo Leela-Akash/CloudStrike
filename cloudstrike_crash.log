@@ -1,0 +1,418 @@
+2026-02-19 01:16:39,597 — DEBUG — start_scan called
+2026-02-19 01:16:39,598 — DEBUG — Credentials row found: True
+2026-02-19 01:16:39,598 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 01:16:39,598 — DEBUG — Starting scanner thread
+2026-02-19 01:16:40,067 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 01:16:40,067 — DEBUG — Scanner thread started successfully
+2026-02-19 01:16:40,074 — DEBUG — Scanner thread started
+2026-02-19 01:16:40,074 — DEBUG — Connecting with region: us-east-1
+2026-02-19 01:16:40,075 — DEBUG — Changing event name from creating-client-class.iot-data to creating-client-class.iot-data-plane
+2026-02-19 01:16:40,077 — DEBUG — Changing event name from before-call.apigateway to before-call.api-gateway
+2026-02-19 01:16:40,095 — DEBUG — Changing event name from request-created.machinelearning.Predict to request-created.machine-learning.Predict
+2026-02-19 01:16:40,096 — DEBUG — Changing event name from before-parameter-build.autoscaling.CreateLaunchConfiguration to before-parameter-build.auto-scaling.CreateLaunchConfiguration
+2026-02-19 01:16:40,096 — DEBUG — Changing event name from before-parameter-build.route53 to before-parameter-build.route-53
+2026-02-19 01:16:40,097 — DEBUG — Changing event name from request-created.cloudsearchdomain.Search to request-created.cloudsearch-domain.Search
+2026-02-19 01:16:40,097 — DEBUG — Changing event name from docs.*.autoscaling.CreateLaunchConfiguration.complete-section to docs.*.auto-scaling.CreateLaunchConfiguration.complete-section
+2026-02-19 01:16:40,099 — DEBUG — Changing event name from before-parameter-build.logs.CreateExportTask to before-parameter-build.cloudwatch-logs.CreateExportTask
+2026-02-19 01:16:40,100 — DEBUG — Changing event name from docs.*.logs.CreateExportTask.complete-section to docs.*.cloudwatch-logs.CreateExportTask.complete-section
+2026-02-19 01:16:40,100 — DEBUG — Changing event name from before-parameter-build.cloudsearchdomain.Search to before-parameter-build.cloudsearch-domain.Search
+2026-02-19 01:16:40,100 — DEBUG — Changing event name from docs.*.cloudsearchdomain.Search.complete-section to docs.*.cloudsearch-domain.Search.complete-section
+2026-02-19 01:16:40,123 — DEBUG — Setting config variable for region to 'us-east-1'
+2026-02-19 01:16:40,124 — DEBUG — boto3 session created successfully
+2026-02-19 01:16:40,124 — DEBUG — Running check: S3 BUCKETS
+2026-02-19 01:16:40,126 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\endpoints.json
+2026-02-19 01:16:40,144 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\sdk-default-configuration.json
+2026-02-19 01:16:40,144 — DEBUG — Event choose-service-name: calling handler <function handle_service_name_alias at 0x000001CA30C32AC0>
+2026-02-19 01:16:40,237 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\s3\2006-03-01\service-2.json.gz
+2026-02-19 01:16:40,341 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\s3\2006-03-01\endpoint-rule-set-1.json.gz
+2026-02-19 01:16:40,346 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\partitions.json
+2026-02-19 01:16:40,348 — DEBUG — Event creating-client-class.s3: calling handler <function add_generate_presigned_post at 0x000001CA30B84680>
+2026-02-19 01:16:40,348 — DEBUG — Event creating-client-class.s3: calling handler <function lazy_call.<locals>._handler at 0x000001CA30CE6700>
+2026-02-19 01:16:40,401 — DEBUG — Event creating-client-class.s3: calling handler <function add_generate_presigned_url at 0x000001CA30B84400>
+2026-02-19 01:16:40,401 — DEBUG — Looking for endpoint for s3 via: environment_service
+2026-02-19 01:16:40,401 — DEBUG — Looking for endpoint for s3 via: environment_global
+2026-02-19 01:16:40,401 — DEBUG — Looking for endpoint for s3 via: config_service
+2026-02-19 01:16:40,401 — DEBUG — Looking for endpoint for s3 via: config_global
+2026-02-19 01:16:40,401 — DEBUG — No configured endpoint found.
+2026-02-19 01:16:40,403 — DEBUG — Setting s3 timeout as (60, 60)
+2026-02-19 01:16:40,407 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\_retry.json
+2026-02-19 01:16:40,408 — DEBUG — Registering retry handlers for service: s3
+2026-02-19 01:16:40,408 — DEBUG — Registering S3 region redirector handler
+2026-02-19 01:16:40,409 — DEBUG — Registering S3Express Identity Resolver
+2026-02-19 01:16:40,409 — DEBUG — Event before-parameter-build.s3.ListBuckets: calling handler <function validate_bucket_name at 0x000001CA30C699E0>
+2026-02-19 01:16:40,409 — DEBUG — Event before-parameter-build.s3.ListBuckets: calling handler <function remove_bucket_from_url_paths_from_model at 0x000001CA30C6BBA0>
+2026-02-19 01:16:40,409 — DEBUG — Event before-parameter-build.s3.ListBuckets: calling handler <bound method S3RegionRedirectorv2.annotate_request_context of <botocore.utils.S3RegionRedirectorv2 object at 0x000001CA33F43D10>>
+2026-02-19 01:16:40,409 — DEBUG — Event before-parameter-build.s3.ListBuckets: calling handler <bound method ClientCreator._inject_s3_input_parameters of <botocore.client.ClientCreator object at 0x000001CA33D1B850>>
+2026-02-19 01:16:40,409 — DEBUG — Event before-parameter-build.s3.ListBuckets: calling handler <function generate_idempotent_uuid at 0x000001CA30C69800>
+2026-02-19 01:16:40,409 — DEBUG — Event before-endpoint-resolution.s3: calling handler <function customize_endpoint_resolver_builtins at 0x000001CA30C6BD80>
+2026-02-19 01:16:40,409 — DEBUG — Event before-endpoint-resolution.s3: calling handler <bound method S3RegionRedirectorv2.redirect_from_cache of <botocore.utils.S3RegionRedirectorv2 object at 0x000001CA33F43D10>>
+2026-02-19 01:16:40,410 — DEBUG — Calling endpoint provider with parameters: {'Region': 'us-east-1', 'UseFIPS': False, 'UseDualStack': False, 'ForcePathStyle': False, 'Accelerate': False, 'UseGlobalEndpoint': True, 'DisableMultiRegionAccessPoints': False, 'UseArnRegion': True}
+2026-02-19 01:16:40,410 — DEBUG — Endpoint provider result: https://s3.amazonaws.com
+2026-02-19 01:16:40,410 — DEBUG — Selecting from endpoint provider's list of auth schemes: "sigv4". User selected auth scheme is: "None"
+2026-02-19 01:16:40,410 — DEBUG — Selected auth type "v4" as "v4" with signing context params: {'region': 'us-east-1', 'signing_name': 's3', 'disableDoubleEncoding': True}
+2026-02-19 01:16:40,411 — DEBUG — Event before-call.s3.ListBuckets: calling handler <function add_expect_header at 0x000001CA30C69DA0>
+2026-02-19 01:16:40,411 — DEBUG — Event before-call.s3.ListBuckets: calling handler <bound method S3ExpressIdentityResolver.apply_signing_cache_key of <botocore.utils.S3ExpressIdentityResolver object at 0x000001CA33F48910>>
+2026-02-19 01:16:40,411 — DEBUG — Event before-call.s3.ListBuckets: calling handler <function add_recursion_detection_header at 0x000001CA30C68040>
+2026-02-19 01:16:40,411 — DEBUG — Event before-call.s3.ListBuckets: calling handler <function inject_api_version_header_if_needed at 0x000001CA30C6B2E0>
+2026-02-19 01:16:40,411 — DEBUG — Making request for OperationModel(name=ListBuckets) with params: {'url_path': '/', 'query_string': {}, 'method': 'GET', 'headers': {'User-Agent': 'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162'}, 'body': b'', 'url': 'https://s3.amazonaws.com/', 'context': {'client_region': 'us-east-1', 'client_config': <botocore.config.Config object at 0x000001CA33F2C5D0>, 'has_streaming_input': False, 'auth_type': 'v4', 's3_redirect': {'redirected': False, 'bucket': None, 'params': {}}, 'input_params': {}, 'signing': {'region': 'us-east-1', 'signing_name': 's3', 'disableDoubleEncoding': True}, 'endpoint_properties': {'authSchemes': [{'disableDoubleEncoding': True, 'name': 'sigv4', 'signingName': 's3', 'signingRegion': 'us-east-1'}]}}}
+2026-02-19 01:16:40,412 — DEBUG — Event request-created.s3.ListBuckets: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x000001CA33F2C590>>
+2026-02-19 01:16:40,412 — DEBUG — Event choose-signer.s3.ListBuckets: calling handler <bound method ClientCreator._default_s3_presign_to_sigv2 of <botocore.client.ClientCreator object at 0x000001CA33D1B850>>
+2026-02-19 01:16:40,412 — DEBUG — Event choose-signer.s3.ListBuckets: calling handler <function set_operation_specific_signer at 0x000001CA30C696C0>
+2026-02-19 01:16:40,412 — DEBUG — Event before-sign.s3.ListBuckets: calling handler <function remove_arn_from_signing_path at 0x000001CA30C6BCE0>
+2026-02-19 01:16:40,412 — DEBUG — Event before-sign.s3.ListBuckets: calling handler <bound method S3ExpressIdentityResolver.resolve_s3express_identity of <botocore.utils.S3ExpressIdentityResolver object at 0x000001CA33F48910>>
+2026-02-19 01:16:40,412 — DEBUG — Calculating signature using v4 auth.
+2026-02-19 01:16:40,413 — DEBUG — CanonicalRequest:
+GET
+/
+
+host:s3.amazonaws.com
+x-amz-content-sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+x-amz-date:20260218T194640Z
+
+host;x-amz-content-sha256;x-amz-date
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+2026-02-19 01:16:40,413 — DEBUG — StringToSign:
+AWS4-HMAC-SHA256
+20260218T194640Z
+20260218/us-east-1/s3/aws4_request
+23f3478f1ef77bab36394df017a0b380be7e98b213e26dbdaba05f65a4aed111
+2026-02-19 01:16:40,413 — DEBUG — Signature:
+ffcda642cf86bd9ba10749a4da6dcafaa741de52771a40d3266eb5b85cd9def6
+2026-02-19 01:16:40,413 — DEBUG — Event request-created.s3.ListBuckets: calling handler <function add_retry_headers at 0x000001CA30C6BB00>
+2026-02-19 01:16:40,413 — DEBUG — Sending http request: <AWSPreparedRequest stream_output=False, method=GET, url=https://s3.amazonaws.com/, headers={'User-Agent': b'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162', 'X-Amz-Date': b'20260218T194640Z', 'X-Amz-Content-SHA256': b'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', 'Authorization': b'AWS4-HMAC-SHA256 Credential=AKIA3G5MOSXWAKYMUBHO/20260218/us-east-1/s3/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=ffcda642cf86bd9ba10749a4da6dcafaa741de52771a40d3266eb5b85cd9def6', 'amz-sdk-invocation-id': b'84d10bf3-a25d-4758-8199-e522ed4f3572', 'amz-sdk-request': b'attempt=1'}>
+2026-02-19 01:16:40,420 — DEBUG — Certificate path: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\certifi\cacert.pem
+2026-02-19 01:16:40,421 — DEBUG — Starting new HTTPS connection (1): s3.amazonaws.com:443
+2026-02-19 01:16:42,218 — DEBUG — https://s3.amazonaws.com:443 "GET / HTTP/1.1" 200 None
+2026-02-19 01:16:42,232 — DEBUG — Response headers: {'x-amz-id-2': 'zFn+Am5KqLtATioroe0ybbm9Za8ARyxXRLspbeJRY6pIf4ckjRMquukPFM8xv1XjRqhVOVQ26Ds=', 'x-amz-request-id': 'JNQ7V4EXXMNKWTVB', 'Date': 'Wed, 18 Feb 2026 19:46:44 GMT', 'Content-Type': 'application/xml', 'Transfer-Encoding': 'chunked', 'Server': 'AmazonS3'}
+2026-02-19 01:16:42,232 — DEBUG — Response body:
+b'<?xml version="1.0" encoding="UTF-8"?>\n<ListAllMyBucketsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Owner><ID>af1b3ca32d17bea79a7ec6fecbfbb44d2eb1275e59de957b029909689f222785</ID></Owner><Buckets/></ListAllMyBucketsResult>'
+2026-02-19 01:16:42,233 — DEBUG — Event needs-retry.s3.ListBuckets: calling handler <botocore.retryhandler.RetryHandler object at 0x000001CA33F48790>
+2026-02-19 01:16:42,233 — DEBUG — No retry needed.
+2026-02-19 01:16:42,233 — DEBUG — Event needs-retry.s3.ListBuckets: calling handler <bound method S3RegionRedirectorv2.redirect_from_error of <botocore.utils.S3RegionRedirectorv2 object at 0x000001CA33F43D10>>
+2026-02-19 01:16:42,235 — DEBUG — Check completed: S3 BUCKETS
+2026-02-19 01:16:42,235 — DEBUG — Running check: IAM USERS
+2026-02-19 01:16:42,235 — DEBUG — Event choose-service-name: calling handler <function handle_service_name_alias at 0x000001CA30C32AC0>
+2026-02-19 01:16:42,240 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\iam\2010-05-08\service-2.json.gz
+2026-02-19 01:16:42,253 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\iam\2010-05-08\endpoint-rule-set-1.json.gz
+2026-02-19 01:16:42,256 — DEBUG — Event creating-client-class.iam: calling handler <function add_generate_presigned_url at 0x000001CA30B84400>
+2026-02-19 01:16:42,257 — DEBUG — Looking for endpoint for iam via: environment_service
+2026-02-19 01:16:42,257 — DEBUG — Looking for endpoint for iam via: environment_global
+2026-02-19 01:16:42,257 — DEBUG — Looking for endpoint for iam via: config_service
+2026-02-19 01:16:42,257 — DEBUG — Looking for endpoint for iam via: config_global
+2026-02-19 01:16:42,257 — DEBUG — No configured endpoint found.
+2026-02-19 01:16:42,257 — DEBUG — Using partition endpoint for iam, us-east-1: aws-global
+2026-02-19 01:16:42,259 — DEBUG — Setting iam timeout as (60, 60)
+2026-02-19 01:16:42,260 — DEBUG — Registering retry handlers for service: iam
+2026-02-19 01:16:42,261 — DEBUG — Event before-parameter-build.iam.ListUsers: calling handler <function generate_idempotent_uuid at 0x000001CA30C69800>
+2026-02-19 01:16:42,261 — DEBUG — Calling endpoint provider with parameters: {'Region': 'us-east-1', 'UseDualStack': False, 'UseFIPS': False}
+2026-02-19 01:16:42,261 — DEBUG — Endpoint provider result: https://iam.amazonaws.com
+2026-02-19 01:16:42,261 — DEBUG — Selecting from endpoint provider's list of auth schemes: "sigv4". User selected auth scheme is: "None"
+2026-02-19 01:16:42,261 — DEBUG — Selected auth type "v4" as "v4" with signing context params: {'region': 'us-east-1', 'signing_name': 'iam'}
+2026-02-19 01:16:42,262 — DEBUG — Event before-call.iam.ListUsers: calling handler <function add_recursion_detection_header at 0x000001CA30C68040>
+2026-02-19 01:16:42,262 — DEBUG — Event before-call.iam.ListUsers: calling handler <function inject_api_version_header_if_needed at 0x000001CA30C6B2E0>
+2026-02-19 01:16:42,262 — DEBUG — Making request for OperationModel(name=ListUsers) with params: {'url_path': '/', 'query_string': '', 'method': 'POST', 'headers': {'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': 'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162'}, 'body': {'Action': 'ListUsers', 'Version': '2010-05-08'}, 'url': 'https://iam.amazonaws.com/', 'context': {'client_region': 'aws-global', 'client_config': <botocore.config.Config object at 0x000001CA344A2C90>, 'has_streaming_input': False, 'auth_type': 'v4', 'signing': {'region': 'us-east-1', 'signing_name': 'iam'}, 'endpoint_properties': {'authSchemes': [{'name': 'sigv4', 'signingName': 'iam', 'signingRegion': 'us-east-1'}]}}}
+2026-02-19 01:16:42,262 — DEBUG — Event request-created.iam.ListUsers: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x000001CA344A2C50>>
+2026-02-19 01:16:42,263 — DEBUG — Event choose-signer.iam.ListUsers: calling handler <function set_operation_specific_signer at 0x000001CA30C696C0>
+2026-02-19 01:16:42,264 — DEBUG — Calculating signature using v4 auth.
+2026-02-19 01:16:42,264 — DEBUG — CanonicalRequest:
+POST
+/
+
+content-type:application/x-www-form-urlencoded; charset=utf-8
+host:iam.amazonaws.com
+x-amz-date:20260218T194642Z
+
+content-type;host;x-amz-date
+b6359072c78d70ebee1e81adcbab4f01bf2c23245fa365ef83fe8f1f955085e2
+2026-02-19 01:16:42,264 — DEBUG — StringToSign:
+AWS4-HMAC-SHA256
+20260218T194642Z
+20260218/us-east-1/iam/aws4_request
+6c0493726dbcf9605a3961e1aecf1ef8e9e19c1c492313947f7508c1c94430ce
+2026-02-19 01:16:42,264 — DEBUG — Signature:
+18eaa600cf5f8a02eca030a58989cc55b5fb45b02136d13644499a99eb6a3a4f
+2026-02-19 01:16:42,264 — DEBUG — Event request-created.iam.ListUsers: calling handler <function add_retry_headers at 0x000001CA30C6BB00>
+2026-02-19 01:16:42,264 — DEBUG — Sending http request: <AWSPreparedRequest stream_output=False, method=POST, url=https://iam.amazonaws.com/, headers={'Content-Type': b'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': b'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162', 'X-Amz-Date': b'20260218T194642Z', 'Authorization': b'AWS4-HMAC-SHA256 Credential=AKIA3G5MOSXWAKYMUBHO/20260218/us-east-1/iam/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=18eaa600cf5f8a02eca030a58989cc55b5fb45b02136d13644499a99eb6a3a4f', 'amz-sdk-invocation-id': b'882721e8-2f3a-4b84-9a64-d69d0be03695', 'amz-sdk-request': b'attempt=1', 'Content-Length': '35'}>
+2026-02-19 01:16:42,265 — DEBUG — Certificate path: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\certifi\cacert.pem
+2026-02-19 01:16:42,265 — DEBUG — Starting new HTTPS connection (1): iam.amazonaws.com:443
+2026-02-19 01:16:44,335 — DEBUG — https://iam.amazonaws.com:443 "POST / HTTP/1.1" 200 573
+2026-02-19 01:16:44,335 — DEBUG — Response headers: {'Date': 'Wed, 18 Feb 2026 19:46:45 GMT', 'x-amzn-RequestId': 'a942c1b3-9172-453d-a9a4-68739a4706c8', 'Content-Type': 'text/xml', 'Content-Length': '573'}
+2026-02-19 01:16:44,335 — DEBUG — Response body:
+b'<ListUsersResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">\n  <ListUsersResult>\n    <IsTruncated>false</IsTruncated>\n    <Users>\n      <member>\n        <Path>/</Path>\n        <UserName>cloud-pentest-user</UserName>\n        <Arn>arn:aws:iam::770771424748:user/cloud-pentest-user</Arn>\n        <UserId>AIDA3G5MOSXWBTBJI3DRB</UserId>\n        <CreateDate>2026-02-07T16:25:09Z</CreateDate>\n      </member>\n    </Users>\n  </ListUsersResult>\n  <ResponseMetadata>\n    <RequestId>a942c1b3-9172-453d-a9a4-68739a4706c8</RequestId>\n  </ResponseMetadata>\n</ListUsersResponse>\n'
+2026-02-19 01:16:44,336 — DEBUG — Event needs-retry.iam.ListUsers: calling handler <botocore.retryhandler.RetryHandler object at 0x000001CA34470950>
+2026-02-19 01:16:44,337 — DEBUG — No retry needed.
+2026-02-19 01:16:44,337 — DEBUG — Event after-call.iam.ListUsers: calling handler <function json_decode_policies at 0x000001CA30C6A480>
+2026-02-19 01:16:44,337 — DEBUG — Event before-parameter-build.iam.ListMFADevices: calling handler <function generate_idempotent_uuid at 0x000001CA30C69800>
+2026-02-19 01:16:44,338 — DEBUG — Calling endpoint provider with parameters: {'Region': 'us-east-1', 'UseDualStack': False, 'UseFIPS': False}
+2026-02-19 01:16:44,338 — DEBUG — Endpoint provider result: https://iam.amazonaws.com
+2026-02-19 01:16:44,338 — DEBUG — Selecting from endpoint provider's list of auth schemes: "sigv4". User selected auth scheme is: "None"
+2026-02-19 01:16:44,338 — DEBUG — Selected auth type "v4" as "v4" with signing context params: {'region': 'us-east-1', 'signing_name': 'iam'}
+2026-02-19 01:16:44,338 — DEBUG — Event before-call.iam.ListMFADevices: calling handler <function add_recursion_detection_header at 0x000001CA30C68040>
+2026-02-19 01:16:44,338 — DEBUG — Event before-call.iam.ListMFADevices: calling handler <function inject_api_version_header_if_needed at 0x000001CA30C6B2E0>
+2026-02-19 01:16:44,338 — DEBUG — Making request for OperationModel(name=ListMFADevices) with params: {'url_path': '/', 'query_string': '', 'method': 'POST', 'headers': {'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': 'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162'}, 'body': {'Action': 'ListMFADevices', 'Version': '2010-05-08', 'UserName': 'cloud-pentest-user'}, 'url': 'https://iam.amazonaws.com/', 'context': {'client_region': 'aws-global', 'client_config': <botocore.config.Config object at 0x000001CA344A2C90>, 'has_streaming_input': False, 'auth_type': 'v4', 'signing': {'region': 'us-east-1', 'signing_name': 'iam'}, 'endpoint_properties': {'authSchemes': [{'name': 'sigv4', 'signingName': 'iam', 'signingRegion': 'us-east-1'}]}}}
+2026-02-19 01:16:44,338 — DEBUG — Event request-created.iam.ListMFADevices: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x000001CA344A2C50>>
+2026-02-19 01:16:44,338 — DEBUG — Event choose-signer.iam.ListMFADevices: calling handler <function set_operation_specific_signer at 0x000001CA30C696C0>
+2026-02-19 01:16:44,339 — DEBUG — Calculating signature using v4 auth.
+2026-02-19 01:16:44,339 — DEBUG — CanonicalRequest:
+POST
+/
+
+content-type:application/x-www-form-urlencoded; charset=utf-8
+host:iam.amazonaws.com
+x-amz-date:20260218T194644Z
+
+content-type;host;x-amz-date
+459983f39b50ed66035acf01df09c13fac3036d2e64dcae98cecf13d7b16a34f
+2026-02-19 01:16:44,339 — DEBUG — StringToSign:
+AWS4-HMAC-SHA256
+20260218T194644Z
+20260218/us-east-1/iam/aws4_request
+614d12c8963aea67f7fc31a7626a412dc02bdd0c20e006f199e11d02ca38c35d
+2026-02-19 01:16:44,339 — DEBUG — Signature:
+ce5efa5c0bc93c5cf746d9ef2cc12337b53cb68b5efae89e6d178d8c2f5154d9
+2026-02-19 01:16:44,339 — DEBUG — Event request-created.iam.ListMFADevices: calling handler <function add_retry_headers at 0x000001CA30C6BB00>
+2026-02-19 01:16:44,339 — DEBUG — Sending http request: <AWSPreparedRequest stream_output=False, method=POST, url=https://iam.amazonaws.com/, headers={'Content-Type': b'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': b'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162', 'X-Amz-Date': b'20260218T194644Z', 'Authorization': b'AWS4-HMAC-SHA256 Credential=AKIA3G5MOSXWAKYMUBHO/20260218/us-east-1/iam/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=ce5efa5c0bc93c5cf746d9ef2cc12337b53cb68b5efae89e6d178d8c2f5154d9', 'amz-sdk-invocation-id': b'c676a8d6-16a2-4360-9bca-f48edf0c38ef', 'amz-sdk-request': b'attempt=1', 'Content-Length': '68'}>
+2026-02-19 01:16:44,340 — DEBUG — Certificate path: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\certifi\cacert.pem
+2026-02-19 01:16:44,707 — DEBUG — https://iam.amazonaws.com:443 "POST / HTTP/1.1" 200 314
+2026-02-19 01:16:44,707 — DEBUG — Response headers: {'Date': 'Wed, 18 Feb 2026 19:46:45 GMT', 'x-amzn-RequestId': '5b8534f8-c8d7-4b7f-9f95-9176441976bb', 'Content-Type': 'text/xml', 'Content-Length': '314'}
+2026-02-19 01:16:44,707 — DEBUG — Response body:
+b'<ListMFADevicesResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">\n  <ListMFADevicesResult>\n    <IsTruncated>false</IsTruncated>\n    <MFADevices/>\n  </ListMFADevicesResult>\n  <ResponseMetadata>\n    <RequestId>5b8534f8-c8d7-4b7f-9f95-9176441976bb</RequestId>\n  </ResponseMetadata>\n</ListMFADevicesResponse>\n'
+2026-02-19 01:16:44,709 — DEBUG — Event needs-retry.iam.ListMFADevices: calling handler <botocore.retryhandler.RetryHandler object at 0x000001CA34470950>
+2026-02-19 01:16:44,709 — DEBUG — No retry needed.
+2026-02-19 01:16:44,709 — DEBUG — Event after-call.iam.ListMFADevices: calling handler <function json_decode_policies at 0x000001CA30C6A480>
+2026-02-19 01:16:44,709 — DEBUG — Event before-parameter-build.iam.ListAccessKeys: calling handler <function generate_idempotent_uuid at 0x000001CA30C69800>
+2026-02-19 01:16:44,709 — DEBUG — Calling endpoint provider with parameters: {'Region': 'us-east-1', 'UseDualStack': False, 'UseFIPS': False}
+2026-02-19 01:16:44,710 — DEBUG — Endpoint provider result: https://iam.amazonaws.com
+2026-02-19 01:16:44,710 — DEBUG — Selecting from endpoint provider's list of auth schemes: "sigv4". User selected auth scheme is: "None"
+2026-02-19 01:16:44,710 — DEBUG — Selected auth type "v4" as "v4" with signing context params: {'region': 'us-east-1', 'signing_name': 'iam'}
+2026-02-19 01:16:44,711 — DEBUG — Event before-call.iam.ListAccessKeys: calling handler <function add_recursion_detection_header at 0x000001CA30C68040>
+2026-02-19 01:16:44,711 — DEBUG — Event before-call.iam.ListAccessKeys: calling handler <function inject_api_version_header_if_needed at 0x000001CA30C6B2E0>
+2026-02-19 01:16:44,711 — DEBUG — Making request for OperationModel(name=ListAccessKeys) with params: {'url_path': '/', 'query_string': '', 'method': 'POST', 'headers': {'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': 'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162'}, 'body': {'Action': 'ListAccessKeys', 'Version': '2010-05-08', 'UserName': 'cloud-pentest-user'}, 'url': 'https://iam.amazonaws.com/', 'context': {'client_region': 'aws-global', 'client_config': <botocore.config.Config object at 0x000001CA344A2C90>, 'has_streaming_input': False, 'auth_type': 'v4', 'signing': {'region': 'us-east-1', 'signing_name': 'iam'}, 'endpoint_properties': {'authSchemes': [{'name': 'sigv4', 'signingName': 'iam', 'signingRegion': 'us-east-1'}]}}}
+2026-02-19 01:16:44,711 — DEBUG — Event request-created.iam.ListAccessKeys: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x000001CA344A2C50>>
+2026-02-19 01:16:44,711 — DEBUG — Event choose-signer.iam.ListAccessKeys: calling handler <function set_operation_specific_signer at 0x000001CA30C696C0>
+2026-02-19 01:16:44,711 — DEBUG — Calculating signature using v4 auth.
+2026-02-19 01:16:44,711 — DEBUG — CanonicalRequest:
+POST
+/
+
+content-type:application/x-www-form-urlencoded; charset=utf-8
+host:iam.amazonaws.com
+x-amz-date:20260218T194644Z
+
+content-type;host;x-amz-date
+6c37f5ac1ee75aae72a8054287484a87edd4e7f908f9cdd5a44ddfc739e05844
+2026-02-19 01:16:44,711 — DEBUG — StringToSign:
+AWS4-HMAC-SHA256
+20260218T194644Z
+20260218/us-east-1/iam/aws4_request
+0713160149858c787f7dbb9e60f80b467b55ac7640e79e2e72be823ace72db9c
+2026-02-19 01:16:44,711 — DEBUG — Signature:
+08a04f06e25f4f17d660dd02f34d2f177e3d1c68f4b9710fc3afcb3d0b8279b0
+2026-02-19 01:16:44,712 — DEBUG — Event request-created.iam.ListAccessKeys: calling handler <function add_retry_headers at 0x000001CA30C6BB00>
+2026-02-19 01:16:44,712 — DEBUG — Sending http request: <AWSPreparedRequest stream_output=False, method=POST, url=https://iam.amazonaws.com/, headers={'Content-Type': b'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': b'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162', 'X-Amz-Date': b'20260218T194644Z', 'Authorization': b'AWS4-HMAC-SHA256 Credential=AKIA3G5MOSXWAKYMUBHO/20260218/us-east-1/iam/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=08a04f06e25f4f17d660dd02f34d2f177e3d1c68f4b9710fc3afcb3d0b8279b0', 'amz-sdk-invocation-id': b'2d04eb1a-c98a-41f5-b8c5-224e5d8bb00a', 'amz-sdk-request': b'attempt=1', 'Content-Length': '68'}>
+2026-02-19 01:16:44,712 — DEBUG — Certificate path: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\certifi\cacert.pem
+2026-02-19 01:16:45,078 — DEBUG — https://iam.amazonaws.com:443 "POST / HTTP/1.1" 200 566
+2026-02-19 01:16:45,078 — DEBUG — Response headers: {'Date': 'Wed, 18 Feb 2026 19:46:46 GMT', 'x-amzn-RequestId': '0bf34a54-35db-4d75-82dc-9f145f9edbba', 'Content-Type': 'text/xml', 'Content-Length': '566'}
+2026-02-19 01:16:45,078 — DEBUG — Response body:
+b'<ListAccessKeysResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">\n  <ListAccessKeysResult>\n    <IsTruncated>false</IsTruncated>\n    <AccessKeyMetadata>\n      <member>\n        <AccessKeyId>AKIA3G5MOSXWAKYMUBHO</AccessKeyId>\n        <UserName>cloud-pentest-user</UserName>\n        <Status>Active</Status>\n        <CreateDate>2026-02-07T16:27:25Z</CreateDate>\n      </member>\n    </AccessKeyMetadata>\n  </ListAccessKeysResult>\n  <ResponseMetadata>\n    <RequestId>0bf34a54-35db-4d75-82dc-9f145f9edbba</RequestId>\n  </ResponseMetadata>\n</ListAccessKeysResponse>\n'
+2026-02-19 01:16:45,080 — DEBUG — Event needs-retry.iam.ListAccessKeys: calling handler <botocore.retryhandler.RetryHandler object at 0x000001CA34470950>
+2026-02-19 01:16:45,080 — DEBUG — No retry needed.
+2026-02-19 01:16:45,080 — DEBUG — Event after-call.iam.ListAccessKeys: calling handler <function json_decode_policies at 0x000001CA30C6A480>
+2026-02-19 01:16:45,081 — DEBUG — Check completed: IAM USERS
+2026-02-19 01:16:45,082 — DEBUG — Running check: IAM POLICIES
+2026-02-19 01:16:45,082 — DEBUG — Event choose-service-name: calling handler <function handle_service_name_alias at 0x000001CA30C32AC0>
+2026-02-19 01:16:45,083 — DEBUG — Event creating-client-class.iam: calling handler <function add_generate_presigned_url at 0x000001CA30B84400>
+2026-02-19 01:16:45,083 — DEBUG — Looking for endpoint for iam via: environment_service
+2026-02-19 01:16:45,083 — DEBUG — Looking for endpoint for iam via: environment_global
+2026-02-19 01:16:45,084 — DEBUG — Looking for endpoint for iam via: config_service
+2026-02-19 01:16:45,084 — DEBUG — Looking for endpoint for iam via: config_global
+2026-02-19 01:16:45,084 — DEBUG — No configured endpoint found.
+2026-02-19 01:16:45,084 — DEBUG — Using partition endpoint for iam, us-east-1: aws-global
+2026-02-19 01:16:45,085 — DEBUG — Setting iam timeout as (60, 60)
+2026-02-19 01:16:45,086 — DEBUG — Registering retry handlers for service: iam
+2026-02-19 01:16:45,087 — DEBUG — Event before-parameter-build.iam.ListPolicies: calling handler <function generate_idempotent_uuid at 0x000001CA30C69800>
+2026-02-19 01:16:45,087 — DEBUG — Calling endpoint provider with parameters: {'Region': 'us-east-1', 'UseDualStack': False, 'UseFIPS': False}
+2026-02-19 01:16:45,087 — DEBUG — Endpoint provider result: https://iam.amazonaws.com
+2026-02-19 01:16:45,087 — DEBUG — Selecting from endpoint provider's list of auth schemes: "sigv4". User selected auth scheme is: "None"
+2026-02-19 01:16:45,087 — DEBUG — Selected auth type "v4" as "v4" with signing context params: {'region': 'us-east-1', 'signing_name': 'iam'}
+2026-02-19 01:16:45,088 — DEBUG — Event before-call.iam.ListPolicies: calling handler <function add_recursion_detection_header at 0x000001CA30C68040>
+2026-02-19 01:16:45,088 — DEBUG — Event before-call.iam.ListPolicies: calling handler <function inject_api_version_header_if_needed at 0x000001CA30C6B2E0>
+2026-02-19 01:16:45,088 — DEBUG — Making request for OperationModel(name=ListPolicies) with params: {'url_path': '/', 'query_string': '', 'method': 'POST', 'headers': {'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': 'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162'}, 'body': {'Action': 'ListPolicies', 'Version': '2010-05-08', 'Scope': 'Local'}, 'url': 'https://iam.amazonaws.com/', 'context': {'client_region': 'aws-global', 'client_config': <botocore.config.Config object at 0x000001CA344EFBD0>, 'has_streaming_input': False, 'auth_type': 'v4', 'signing': {'region': 'us-east-1', 'signing_name': 'iam'}, 'endpoint_properties': {'authSchemes': [{'name': 'sigv4', 'signingName': 'iam', 'signingRegion': 'us-east-1'}]}}}
+2026-02-19 01:16:45,088 — DEBUG — Event request-created.iam.ListPolicies: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x000001CA344EFB90>>
+2026-02-19 01:16:45,088 — DEBUG — Event choose-signer.iam.ListPolicies: calling handler <function set_operation_specific_signer at 0x000001CA30C696C0>
+2026-02-19 01:16:45,088 — DEBUG — Calculating signature using v4 auth.
+2026-02-19 01:16:45,088 — DEBUG — CanonicalRequest:
+POST
+/
+
+content-type:application/x-www-form-urlencoded; charset=utf-8
+host:iam.amazonaws.com
+x-amz-date:20260218T194645Z
+
+content-type;host;x-amz-date
+4b321204173fb0869d31591656555940f991a28b4d9e3529e2630df7f16c5578
+2026-02-19 01:16:45,088 — DEBUG — StringToSign:
+AWS4-HMAC-SHA256
+20260218T194645Z
+20260218/us-east-1/iam/aws4_request
+9d7b30654193f8b73691294c11b88c58422df760f6c4cd57d404b5c21de7fa18
+2026-02-19 01:16:45,088 — DEBUG — Signature:
+438dbd8427aad17310507de8f91f907aaba40c5c3b360823102f6ec7c021ba8f
+2026-02-19 01:16:45,088 — DEBUG — Event request-created.iam.ListPolicies: calling handler <function add_retry_headers at 0x000001CA30C6BB00>
+2026-02-19 01:16:45,088 — DEBUG — Sending http request: <AWSPreparedRequest stream_output=False, method=POST, url=https://iam.amazonaws.com/, headers={'Content-Type': b'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': b'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162', 'X-Amz-Date': b'20260218T194645Z', 'Authorization': b'AWS4-HMAC-SHA256 Credential=AKIA3G5MOSXWAKYMUBHO/20260218/us-east-1/iam/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=438dbd8427aad17310507de8f91f907aaba40c5c3b360823102f6ec7c021ba8f', 'amz-sdk-invocation-id': b'16cc0e52-ad7e-4c60-b75f-742fd90f8df9', 'amz-sdk-request': b'attempt=1', 'Content-Length': '50'}>
+2026-02-19 01:16:45,089 — DEBUG — Certificate path: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\certifi\cacert.pem
+2026-02-19 01:16:45,089 — DEBUG — Starting new HTTPS connection (1): iam.amazonaws.com:443
+2026-02-19 01:16:47,115 — DEBUG — https://iam.amazonaws.com:443 "POST / HTTP/1.1" 200 304
+2026-02-19 01:16:47,115 — DEBUG — Response headers: {'Date': 'Wed, 18 Feb 2026 19:46:48 GMT', 'x-amzn-RequestId': 'b0122702-635b-4d28-aca4-0795ac05c531', 'Content-Type': 'text/xml', 'Content-Length': '304'}
+2026-02-19 01:16:47,115 — DEBUG — Response body:
+b'<ListPoliciesResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">\n  <ListPoliciesResult>\n    <IsTruncated>false</IsTruncated>\n    <Policies/>\n  </ListPoliciesResult>\n  <ResponseMetadata>\n    <RequestId>b0122702-635b-4d28-aca4-0795ac05c531</RequestId>\n  </ResponseMetadata>\n</ListPoliciesResponse>\n'
+2026-02-19 01:16:47,116 — DEBUG — Event needs-retry.iam.ListPolicies: calling handler <botocore.retryhandler.RetryHandler object at 0x000001CA30366050>
+2026-02-19 01:16:47,116 — DEBUG — No retry needed.
+2026-02-19 01:16:47,116 — DEBUG — Event after-call.iam.ListPolicies: calling handler <function json_decode_policies at 0x000001CA30C6A480>
+2026-02-19 01:16:47,119 — DEBUG — Check completed: IAM POLICIES
+2026-02-19 01:16:47,119 — DEBUG — Running check: SECURITY GROUPS
+2026-02-19 01:16:47,119 — DEBUG — Event choose-service-name: calling handler <function handle_service_name_alias at 0x000001CA30C32AC0>
+2026-02-19 01:16:47,150 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\ec2\2016-11-15\service-2.json.gz
+2026-02-19 01:16:47,202 — DEBUG — Loading JSON file: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\botocore\data\ec2\2016-11-15\endpoint-rule-set-1.json.gz
+2026-02-19 01:16:47,261 — DEBUG — Event creating-client-class.ec2: calling handler <function add_generate_presigned_url at 0x000001CA30B84400>
+2026-02-19 01:16:47,261 — DEBUG — Looking for endpoint for ec2 via: environment_service
+2026-02-19 01:16:47,262 — DEBUG — Looking for endpoint for ec2 via: environment_global
+2026-02-19 01:16:47,262 — DEBUG — Looking for endpoint for ec2 via: config_service
+2026-02-19 01:16:47,262 — DEBUG — Looking for endpoint for ec2 via: config_global
+2026-02-19 01:16:47,262 — DEBUG — No configured endpoint found.
+2026-02-19 01:16:47,263 — DEBUG — Setting ec2 timeout as (60, 60)
+2026-02-19 01:16:47,265 — DEBUG — Registering retry handlers for service: ec2
+2026-02-19 01:16:47,266 — DEBUG — Event before-parameter-build.ec2.DescribeSecurityGroups: calling handler <bound method ParameterAlias.alias_parameter_in_call of <botocore.handlers.ParameterAlias object at 0x000001CA30C74FD0>>
+2026-02-19 01:16:47,266 — DEBUG — Event before-parameter-build.ec2.DescribeSecurityGroups: calling handler <function generate_idempotent_uuid at 0x000001CA30C69800>
+2026-02-19 01:16:47,266 — DEBUG — Calling endpoint provider with parameters: {'Region': 'us-east-1', 'UseDualStack': False, 'UseFIPS': False}
+2026-02-19 01:16:47,267 — DEBUG — Endpoint provider result: https://ec2.us-east-1.amazonaws.com
+2026-02-19 01:16:47,267 — DEBUG — Event before-call.ec2.DescribeSecurityGroups: calling handler <function add_recursion_detection_header at 0x000001CA30C68040>
+2026-02-19 01:16:47,267 — DEBUG — Event before-call.ec2.DescribeSecurityGroups: calling handler <function inject_api_version_header_if_needed at 0x000001CA30C6B2E0>
+2026-02-19 01:16:47,267 — DEBUG — Making request for OperationModel(name=DescribeSecurityGroups) with params: {'url_path': '/', 'query_string': '', 'method': 'POST', 'headers': {'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': 'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162'}, 'body': {'Action': 'DescribeSecurityGroups', 'Version': '2016-11-15'}, 'url': 'https://ec2.us-east-1.amazonaws.com/', 'context': {'client_region': 'us-east-1', 'client_config': <botocore.config.Config object at 0x000001CA35649950>, 'has_streaming_input': False, 'auth_type': None}}
+2026-02-19 01:16:47,267 — DEBUG — Event request-created.ec2.DescribeSecurityGroups: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x000001CA357C9010>>
+2026-02-19 01:16:47,267 — DEBUG — Event choose-signer.ec2.DescribeSecurityGroups: calling handler <function set_operation_specific_signer at 0x000001CA30C696C0>
+2026-02-19 01:16:47,269 — DEBUG — Calculating signature using v4 auth.
+2026-02-19 01:16:47,269 — DEBUG — CanonicalRequest:
+POST
+/
+
+content-type:application/x-www-form-urlencoded; charset=utf-8
+host:ec2.us-east-1.amazonaws.com
+x-amz-date:20260218T194647Z
+
+content-type;host;x-amz-date
+398587829763af2624ad0faa257a51949217b85bb2957c3948946c38ab0fddac
+2026-02-19 01:16:47,269 — DEBUG — StringToSign:
+AWS4-HMAC-SHA256
+20260218T194647Z
+20260218/us-east-1/ec2/aws4_request
+ec17dcf10887aa11ba7734e411817f22677bba7991485ef7c7d7095dcbb522ca
+2026-02-19 01:16:47,269 — DEBUG — Signature:
+8b1549ed537d7b14f3ccae56700f0ca4238938931288ecf8933705dcda72e103
+2026-02-19 01:16:47,269 — DEBUG — Event request-created.ec2.DescribeSecurityGroups: calling handler <function add_retry_headers at 0x000001CA30C6BB00>
+2026-02-19 01:16:47,269 — DEBUG — Sending http request: <AWSPreparedRequest stream_output=False, method=POST, url=https://ec2.us-east-1.amazonaws.com/, headers={'Content-Type': b'application/x-www-form-urlencoded; charset=utf-8', 'User-Agent': b'Boto3/1.34.34 md/Botocore#1.34.162 ua/2.0 os/windows#10 md/arch#amd64 lang/python#3.11.9 md/pyimpl#CPython cfg/retry-mode#legacy Botocore/1.34.162', 'X-Amz-Date': b'20260218T194647Z', 'Authorization': b'AWS4-HMAC-SHA256 Credential=AKIA3G5MOSXWAKYMUBHO/20260218/us-east-1/ec2/aws4_request, SignedHeaders=content-type;host;x-amz-date, Signature=8b1549ed537d7b14f3ccae56700f0ca4238938931288ecf8933705dcda72e103', 'amz-sdk-invocation-id': b'690ddd1d-193b-4a97-bb97-6bc5a0f6cc0d', 'amz-sdk-request': b'attempt=1', 'Content-Length': '48'}>
+2026-02-19 01:16:47,269 — DEBUG — Certificate path: C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\site-packages\certifi\cacert.pem
+2026-02-19 01:16:47,270 — DEBUG — Starting new HTTPS connection (1): ec2.us-east-1.amazonaws.com:443
+2026-02-19 01:19:58,342 — DEBUG — start_scan called
+2026-02-19 01:19:58,343 — DEBUG — Credentials row found: True
+2026-02-19 01:19:58,344 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 01:19:58,344 — DEBUG — Starting scanner thread
+2026-02-19 01:19:58,763 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 01:19:58,764 — DEBUG — Scanner thread started successfully
+2026-02-19 01:19:58,766 — DEBUG — Scanner thread started
+2026-02-19 01:19:58,767 — DEBUG — Connecting with region: us-east-1
+2026-02-19 01:19:58,820 — DEBUG — boto3 session created successfully
+2026-02-19 01:19:58,820 — DEBUG — Running check: S3 BUCKETS
+2026-02-19 01:20:00,454 — DEBUG — Check completed: S3 BUCKETS
+2026-02-19 01:20:00,755 — DEBUG — Running check: IAM USERS
+2026-02-19 01:20:03,689 — DEBUG — Check completed: IAM USERS
+2026-02-19 01:20:03,990 — DEBUG — Running check: IAM POLICIES
+2026-02-19 01:20:06,864 — DEBUG — Check completed: IAM POLICIES
+2026-02-19 01:20:07,165 — DEBUG — Running check: SECURITY GROUPS
+2026-02-19 01:23:19,184 — DEBUG — start_scan called
+2026-02-19 01:23:19,186 — DEBUG — Credentials row found: True
+2026-02-19 01:23:19,187 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 01:23:19,187 — DEBUG — Starting scanner thread
+2026-02-19 01:23:19,655 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 01:23:19,655 — DEBUG — Scanner thread started successfully
+2026-02-19 01:28:53,603 — DEBUG — start_scan called
+2026-02-19 01:28:53,604 — DEBUG — Credentials row found: True
+2026-02-19 01:28:53,605 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 01:28:53,605 — DEBUG — Starting scanner thread
+2026-02-19 01:28:54,014 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 01:28:54,014 — DEBUG — Scanner thread started successfully
+2026-02-19 01:29:17,870 — CRITICAL — UNCAUGHT EXCEPTION
+Traceback (most recent call last):
+  File "E:\CloudStrike_Final_Version\cloudstrike_ui.py", line 352, in export_report
+    table = findings_page.findingsTable
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FindingsPage' object has no attribute 'findingsTable'
+2026-02-19 01:29:29,289 — CRITICAL — UNCAUGHT EXCEPTION
+Traceback (most recent call last):
+  File "E:\CloudStrike_Final_Version\cloudstrike_ui.py", line 352, in export_report
+    table = findings_page.findingsTable
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FindingsPage' object has no attribute 'findingsTable'
+2026-02-19 01:39:25,119 — DEBUG — start_scan called
+2026-02-19 01:39:25,120 — DEBUG — Credentials row found: True
+2026-02-19 01:39:25,121 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 01:39:25,121 — DEBUG — Starting scanner thread
+2026-02-19 01:39:25,643 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 01:39:25,643 — DEBUG — Scanner thread started successfully
+2026-02-19 01:41:00,758 — DEBUG — start_scan called
+2026-02-19 01:41:00,763 — DEBUG — Credentials row found: True
+2026-02-19 01:41:00,763 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 01:41:00,764 — DEBUG — Starting scanner thread
+2026-02-19 01:41:01,200 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 01:41:01,200 — DEBUG — Scanner thread started successfully
+2026-02-19 01:51:27,185 — CRITICAL — UNCAUGHT EXCEPTION
+Traceback (most recent call last):
+  File "E:\CloudStrike_Final_Version\cloudstrike_ui.py", line 904, in launch_main
+    window = CloudStrikeUI()
+             ^^^^^^^^^^^^^^^
+  File "E:\CloudStrike_Final_Version\cloudstrike_ui.py", line 115, in __init__
+    self.stack = self.create_center_panel()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\CloudStrike_Final_Version\cloudstrike_ui.py", line 221, in create_center_panel
+    "Findings":     FindingsPage(),
+                    ^^^^^^^^^^^^^^
+  File "E:\CloudStrike_Final_Version\page_findings.py", line 23, in __init__
+    scan_again_btn = QPushButton("\u21ba  SCAN AGAIN")
+                     ^^^^^^^^^^^
+NameError: name 'QPushButton' is not defined
+2026-02-19 01:57:07,788 — DEBUG — start_scan called
+2026-02-19 01:57:07,791 — DEBUG — Credentials row found: True
+2026-02-19 01:57:07,791 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 01:57:07,791 — DEBUG — Starting scanner thread
+2026-02-19 01:57:08,260 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 01:57:08,260 — DEBUG — Scanner thread started successfully
+2026-02-19 02:10:57,797 — DEBUG — start_scan called
+2026-02-19 02:10:57,815 — DEBUG — Credentials row found: True
+2026-02-19 02:10:57,816 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 02:10:57,816 — DEBUG — Starting scanner thread
+2026-02-19 02:10:58,260 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 02:10:58,261 — DEBUG — Scanner thread started successfully
+2026-02-19 22:19:35,707 — DEBUG — start_scan called
+2026-02-19 22:19:35,726 — DEBUG — Credentials row found: True
+2026-02-19 22:19:35,726 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 22:19:35,727 — DEBUG — Starting scanner thread
+2026-02-19 22:19:36,725 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 22:19:36,726 — DEBUG — Scanner thread started successfully
+2026-02-19 23:45:39,380 — DEBUG — start_scan called
+2026-02-19 23:45:39,382 — DEBUG — Credentials row found: True
+2026-02-19 23:45:39,382 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 23:45:39,382 — DEBUG — Starting scanner thread
+2026-02-19 23:45:40,277 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 23:45:40,277 — DEBUG — Scanner thread started successfully
+2026-02-19 23:59:29,501 — DEBUG — start_scan called
+2026-02-19 23:59:29,503 — DEBUG — Credentials row found: True
+2026-02-19 23:59:29,503 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-19 23:59:29,503 — DEBUG — Starting scanner thread
+2026-02-19 23:59:29,797 — DEBUG — All signals connected, calling scanner.start()
+2026-02-19 23:59:29,797 — DEBUG — Scanner thread started successfully
+2026-02-20 00:03:48,732 — DEBUG — start_scan called
+2026-02-20 00:03:48,733 — DEBUG — Credentials row found: True
+2026-02-20 00:03:48,733 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-20 00:03:48,733 — DEBUG — Starting scanner thread
+2026-02-20 00:03:49,350 — DEBUG — All signals connected, calling scanner.start()
+2026-02-20 00:03:49,351 — DEBUG — Scanner thread started successfully
