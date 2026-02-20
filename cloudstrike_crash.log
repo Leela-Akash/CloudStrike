@@ -416,3 +416,13 @@ NameError: name 'QPushButton' is not defined
 2026-02-20 00:03:48,733 — DEBUG — Starting scanner thread
 2026-02-20 00:03:49,350 — DEBUG — All signals connected, calling scanner.start()
 2026-02-20 00:03:49,351 — DEBUG — Scanner thread started successfully
+2026-02-20 15:02:59,773 — DEBUG — start_scan called
+2026-02-20 15:02:59,791 — DEBUG — Credentials row found: True
+2026-02-20 15:02:59,791 — DEBUG — Credentials loaded - region: us-east-1
+2026-02-20 15:02:59,791 — DEBUG — Starting scanner thread
+2026-02-20 15:03:00,920 — DEBUG — All signals connected, calling scanner.start()
+2026-02-20 15:03:00,920 — DEBUG — Scanner thread started successfully
+2026-02-20 23:09:11,549 — DEBUG — start_scan called
+2026-02-20 23:09:11,550 — DEBUG — Credentials row found: True
+2026-02-20 23:09:12,249 — DEBUG — All signals connected, calling scanner.start()
+2026-02-20 23:09:12,249 — DEBUG — Scanner thread started successfully

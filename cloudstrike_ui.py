@@ -902,6 +902,48 @@ class CloudStrikeUI(QMainWindow):
                 color: #8a7a6a;
                 margin-top: 8px;
             }
+            
+            #detailMeta {
+                font-size: 11px;
+                color: #8a7a6a;
+            }
+            
+            #detailText {
+                font-size: 12px;
+                color: #e8e6e3;
+                line-height: 1.5;
+            }
+            
+            QPushButton#fixButton {
+                background-color: #ff4500;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 4px;
+                font-size: 12px;
+                font-weight: bold;
+                letter-spacing: 1px;
+                margin-top: 4px;
+            }
+            
+            QPushButton#fixButton:hover {
+                background-color: #ff6b35;
+            }
+            
+            QPushButton#fixButton:disabled {
+                background-color: #2a1f1a;
+                color: #444;
+            }
+            
+            QTextEdit#remediationBox {
+                background-color: #020a02;
+                border: 1px solid #1a3a1a;
+                border-radius: 4px;
+                font-family: 'Courier New', monospace;
+                font-size: 10px;
+                color: #ff6b35;
+                padding: 6px;
+            }
         """
 
 if __name__ == "__main__":

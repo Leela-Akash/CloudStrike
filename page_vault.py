@@ -63,29 +63,41 @@ class VaultPage(QWidget):
         self.provider_combo = QComboBox()
         self.provider_combo.setObjectName("vaultInput")
         self.provider_combo.addItems(["AWS", "Azure", "GCP"])
+        self.provider_combo.currentTextChanged.connect(self.on_provider_changed)
         
         self.account_input = QLineEdit()
         self.account_input.setObjectName("vaultInput")
         self.account_input.setPlaceholderText("Production Account")
         
+        self.access_key_label = QLabel("Access Key:")
         self.access_key_input = QLineEdit()
         self.access_key_input.setObjectName("vaultInput")
         self.access_key_input.setPlaceholderText("AKIAIOSFODNN7EXAMPLE")
         
+        self.secret_key_label = QLabel("Secret Key:")
         self.secret_key_input = QLineEdit()
         self.secret_key_input.setObjectName("vaultInput")
         self.secret_key_input.setEchoMode(QLineEdit.EchoMode.Password)
         self.secret_key_input.setPlaceholderText("wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
         
+        self.region_label = QLabel("Region:")
         self.region_input = QLineEdit()
         self.region_input.setObjectName("vaultInput")
         self.region_input.setPlaceholderText("us-east-1")
         
+        self.extra_field_label = QLabel("Tenant ID:")
+        self.extra_field = QLineEdit()
+        self.extra_field.setObjectName("vaultInput")
+        self.extra_field.setPlaceholderText("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+        self.extra_field_label.hide()
+        self.extra_field.hide()
+        
         form_layout.addRow("Cloud Provider:", self.provider_combo)
         form_layout.addRow("Account Name:", self.account_input)
-        form_layout.addRow("Access Key:", self.access_key_input)
-        form_layout.addRow("Secret Key:", self.secret_key_input)
-        form_layout.addRow("Region:", self.region_input)
+        form_layout.addRow(self.access_key_label, self.access_key_input)
+        form_layout.addRow(self.secret_key_label, self.secret_key_input)
+        form_layout.addRow(self.region_label, self.region_input)
+        form_layout.addRow(self.extra_field_label, self.extra_field)
         
         save_btn = QPushButton("Save Credentials")
         save_btn.setObjectName("secondaryButton")
@@ -96,7 +108,7 @@ class VaultPage(QWidget):
         separator.setFixedHeight(1)
         separator.setStyleSheet("background:#2a1f1a;")
         
-        self.scan_btn = QPushButton("▶  START AWS SCAN")
+        self.scan_btn = QPushButton("▶  START SCAN")
         self.scan_btn.setObjectName("scanButton")
         self.scan_btn.clicked.connect(self.start_scan)
         self.scan_btn.setEnabled(self.has_credentials())
@@ -115,6 +127,37 @@ class VaultPage(QWidget):
         
         # Load saved credentials if they exist
         self.load_credentials()
+    
+    def on_provider_changed(self, provider):
+        if provider == 'AWS':
+            self.access_key_label.setText("Access Key:")
+            self.secret_key_label.setText("Secret Key:")
+            self.region_label.setText("Region:")
+            self.access_key_input.setPlaceholderText("AKIAIOSFODNN7EXAMPLE")
+            self.secret_key_input.setPlaceholderText("wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY")
+            self.region_input.setPlaceholderText("us-east-1")
+            self.extra_field_label.hide()
+            self.extra_field.hide()
+        elif provider == 'Azure':
+            self.access_key_label.setText("Client ID:")
+            self.secret_key_label.setText("Client Secret:")
+            self.region_label.setText("Subscription ID:")
+            self.access_key_input.setPlaceholderText("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+            self.secret_key_input.setPlaceholderText("Client secret value")
+            self.region_input.setPlaceholderText("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+            self.extra_field_label.setText("Tenant ID:")
+            self.extra_field.setPlaceholderText("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+            self.extra_field_label.show()
+            self.extra_field.show()
+        elif provider == 'GCP':
+            self.access_key_label.setText("Project ID:")
+            self.secret_key_label.setText("Service Account JSON:")
+            self.region_label.setText("Region (optional):")
+            self.access_key_input.setPlaceholderText("my-gcp-project-id")
+            self.secret_key_input.setPlaceholderText("Paste full service account JSON here...")
+            self.region_input.setPlaceholderText("us-central1")
+            self.extra_field_label.hide()
+            self.extra_field.hide()
     
     def load_credentials(self):
         """Load and display saved credentials when page opens"""
@@ -200,6 +243,7 @@ class VaultPage(QWidget):
                 access_key TEXT,
                 secret_key TEXT,
                 region TEXT,
+                extra_field TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ''')
@@ -212,17 +256,22 @@ class VaultPage(QWidget):
         access_key = self.access_key_input.text()
         secret_key = self.secret_key_input.text()
         region = self.region_input.text()
+        extra = self.extra_field.text() if provider == 'Azure' else ''
         
         if not all([account, access_key, secret_key, region]):
             QMessageBox.warning(self, "Validation Error", "All fields are required")
             return
         
+        if provider == 'Azure' and not extra:
+            QMessageBox.warning(self, "Validation Error", "Tenant ID is required for Azure")
+            return
+        
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         cursor.execute('''
-            INSERT INTO credentials (provider, account_name, access_key, secret_key, region)
-            VALUES (?, ?, ?, ?, ?)
-        ''', (provider, account, access_key, secret_key, region))
+            INSERT INTO credentials (provider, account_name, access_key, secret_key, region, extra_field)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', (provider, account, access_key, secret_key, region, extra))
         conn.commit()
         conn.close()
         
@@ -248,16 +297,37 @@ class VaultPage(QWidget):
                 logging.warning("No credentials found in database")
                 return
             
-            credentials = {
-                'access_key': row[3],
-                'secret_key': row[4],
-                'region': row[5]
-            }
-            logging.debug(f"Credentials loaded - region: {credentials['region']}")
-            logging.debug("Starting scanner thread")
+            provider = row[1] if row else 'AWS'
             
-            from aws_scanner import AWSScanner
-            self.scanner = AWSScanner(credentials)
+            if provider == 'GCP':
+                credentials = {
+                    'project_id': row[3],
+                    'credentials_json': row[4],
+                    'region': row[5]
+                }
+                from gcp_scanner import GCPScanner
+                self.scanner = GCPScanner(credentials)
+                self.scan_status.setText("● SCANNING GCP...")
+            elif provider == 'Azure':
+                credentials = {
+                    'client_id': row[3],
+                    'client_secret': row[4],
+                    'subscription_id': row[5],
+                    'tenant_id': row[6] if len(row) > 6 else ''
+                }
+                from azure_scanner import AzureScanner
+                self.scanner = AzureScanner(credentials)
+                self.scan_status.setText("● SCANNING AZURE...")
+            else:
+                credentials = {
+                    'access_key': row[3],
+                    'secret_key': row[4],
+                    'region': row[5]
+                }
+                from aws_scanner import AWSScanner
+                self.scanner = AWSScanner(credentials)
+                self.scan_status.setText("● SCANNING AWS...")
+            
             self._scanner_ref = self.scanner
             
             from PyQt6.QtCore import Qt
@@ -292,7 +362,6 @@ class VaultPage(QWidget):
             self.scanner.start()
             logging.debug("Scanner thread started successfully")
             self.scan_btn.setEnabled(False)
-            self.scan_status.setText("● SCANNING...")
             
         except Exception as e:
             logging.critical(f"start_scan crashed: {e}\n{traceback.format_exc()}")
