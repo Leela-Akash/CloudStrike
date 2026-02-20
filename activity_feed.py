@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, 
                              QFrame, QScrollArea, QDialog, QPushButton)
 from PyQt6.QtCore import Qt
+import logging
 
 class FindingDetailDialog(QDialog):
     def __init__(self, finding, parent=None):
@@ -136,9 +137,12 @@ class ActivityFeedItem(QFrame):
         layout.addLayout(content_layout, 1)
     
     def mousePressEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            dialog = FindingDetailDialog(self.finding, self)
-            dialog.exec()
+        try:
+            if event.button() == Qt.MouseButton.LeftButton:
+                dialog = FindingDetailDialog(self.finding, self)
+                dialog.exec()
+        except Exception as e:
+            logging.error(f"Activity item click error: {e}")
 
 class ActivityFeed(QWidget):
     def __init__(self):
@@ -227,32 +231,35 @@ class ActivityFeed(QWidget):
     
     def clear_and_reload(self, findings):
         """Called after real scan — replaces fake data with real findings"""
-        # Clear existing items
-        for i in reversed(range(self.layout().count())):
-            widget = self.layout().itemAt(i).widget()
-            if widget:
-                widget.deleteLater()
-        
-        if not findings:
-            return
-        
-        # Show ALL findings sorted by severity
-        sev_order = {'CRITICAL':0,'HIGH':1,'MEDIUM':2,'LOW':3}
-        sorted_findings = sorted(
-            findings,
-            key=lambda x: sev_order.get(x.get('severity','LOW'), 4)
-        )
-        
-        for i, finding in enumerate(sorted_findings):
-            activity = {
-                'severity': finding.get('severity', 'LOW').lower(),
-                'title': finding.get('title', 'Unknown Finding'),
-                'time': 'Just now' if i == 0 else f'{i} min ago',
-                'resource': finding.get('resource', 'N/A'),
-                'description': finding.get('description', ''),
-                'fix': finding.get('fix', '')
-            }
-            item = ActivityFeedItem(activity)
-            self.layout().addWidget(item)
-        
-        self.layout().addStretch()
+        try:
+            # Clear existing items
+            for i in reversed(range(self.layout().count())):
+                widget = self.layout().itemAt(i).widget()
+                if widget:
+                    widget.deleteLater()
+            
+            if not findings:
+                return
+            
+            # Show ALL findings sorted by severity
+            sev_order = {'CRITICAL':0,'HIGH':1,'MEDIUM':2,'LOW':3}
+            sorted_findings = sorted(
+                findings,
+                key=lambda x: sev_order.get(x.get('severity','LOW'), 4)
+            )
+            
+            for i, finding in enumerate(sorted_findings):
+                activity = {
+                    'severity': finding.get('severity', 'LOW').lower(),
+                    'title': finding.get('title', 'Unknown Finding'),
+                    'time': 'Just now' if i == 0 else f'{i} min ago',
+                    'resource': finding.get('resource', 'N/A'),
+                    'description': finding.get('description', ''),
+                    'fix': finding.get('remediation', finding.get('fix', ''))
+                }
+                item = ActivityFeedItem(activity)
+                self.layout().addWidget(item)
+            
+            self.layout().addStretch()
+        except Exception as e:
+            logging.error(f"clear_and_reload error: {e}")
