@@ -206,22 +206,32 @@ def run_gcp_scan_process(credentials, result_queue):
                     policy = bucket.get_iam_policy()
                     for binding in policy.bindings:
                         if 'allUsers' in binding['members'] or 'allAuthenticatedUsers' in binding['members']:
+                            # Map multi-region codes to specific regions for map display
+                            location = (bucket.location or 'us').lower()
+                            region_map = {'us': 'us-central1', 'eu': 'europe-west1', 'asia': 'asia-southeast1'}
+                            region = region_map.get(location, location)
+                            
                             add_finding(
                                 'CRITICAL',
                                 f'GCS Bucket Public: {bucket.name}',
                                 'GCS',
-                                bucket.location or 'us',
+                                region,
                                 f'Bucket {bucket.name} is publicly accessible.',
                                 f'gsutil iam ch -d allUsers gs://{bucket.name}'
                             )
                 except: pass
 
                 if not bucket.versioning_enabled:
+                    # Map multi-region codes to specific regions for map display
+                    location = (bucket.location or 'us').lower()
+                    region_map = {'us': 'us-central1', 'eu': 'europe-west1', 'asia': 'asia-southeast1'}
+                    region = region_map.get(location, location)
+                    
                     add_finding(
                         'LOW',
                         f'GCS Versioning Disabled: {bucket.name}',
                         'GCS',
-                        bucket.location or 'us',
+                        region,
                         f'Bucket {bucket.name} has no versioning.',
                         f'gsutil versioning set on gs://{bucket.name}'
                     )
@@ -261,11 +271,15 @@ def run_gcp_scan_process(credentials, result_queue):
                 for instance in zone_data.get('instances', []):
                     for iface in instance.get('networkInterfaces', []):
                         if iface.get('accessConfigs'):
+                            # Extract zone and strip suffix (us-central1-a → us-central1)
+                            zone = instance.get('zone', '').split('/')[-1]
+                            region = '-'.join(zone.split('-')[:-1]) if zone and '-' in zone else 'global'
+                            
                             add_finding(
                                 'MEDIUM',
                                 f'VM Public IP: {instance["name"]}',
                                 'Compute',
-                                instance.get('zone', '').split('/')[-1],
+                                region,
                                 f'VM {instance["name"]} has external IP.',
                                 f'gcloud compute instances delete-access-config {instance["name"]} --access-config-name="External NAT"'
                             )

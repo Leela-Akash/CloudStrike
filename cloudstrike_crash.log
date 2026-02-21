@@ -669,3 +669,23 @@ Response headers:
     'X-Cache': 'REDACTED'
     'X-MSEdge-Ref': 'Ref A: 3D6535BE799F46479C03C95361543C87 Ref B: MAA201060513051 Ref C: 2026-02-21T10:42:29Z'
     'Date': 'Sat, 21 Feb 2026 10:42:29 GMT'
+2026-02-21 22:27:54,792 — DEBUG — start_scan called
+2026-02-21 22:27:54,794 — DEBUG — Credentials row found: True
+2026-02-21 22:27:54,806 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 22:27:54,806 — DEBUG — Scanner thread started successfully
+2026-02-21 22:28:07,634 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 22:28:07,708 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/global/firewalls?alt=json
+2026-02-21 22:28:08,466 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 22:28:08,470 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 22:28:08,527 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/aggregated/instances?alt=json
+2026-02-21 22:28:09,272 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 22:32:12,539 — DEBUG — start_scan called
+2026-02-21 22:32:12,540 — DEBUG — Credentials row found: True
+2026-02-21 22:32:12,546 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 22:32:12,546 — DEBUG — Scanner thread started successfully
+2026-02-21 22:32:15,694 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 22:32:15,728 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/global/firewalls?alt=json
+2026-02-21 22:32:16,372 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 22:32:16,375 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 22:32:16,426 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/aggregated/instances?alt=json
+2026-02-21 22:32:17,117 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
