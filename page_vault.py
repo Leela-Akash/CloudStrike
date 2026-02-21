@@ -412,16 +412,44 @@ class VaultPage(QWidget):
         self.scan_status.setText(f"✓ SCAN COMPLETE — {len(findings)} findings")
         self.scan_btn.setEnabled(True)
         
+        # Record scan to history
+        try:
+            from settings_manager import record_scan
+            counts = {'CRITICAL':0,'HIGH':0,'MEDIUM':0,'LOW':0}
+            for f in findings:
+                sev = f.get('severity','LOW')
+                counts[sev] = counts.get(sev,0) + 1
+            record_scan(
+                len(findings),
+                counts['CRITICAL'],
+                counts['HIGH'],
+                counts['MEDIUM'],
+                counts['LOW']
+            )
+        except Exception as e:
+            import logging
+            logging.error(f"record_scan failed: {e}")
+        
         from settings_manager import get_all_settings
         settings = get_all_settings()
         
         main = self.window()
         
-        # Update threat map with real findings
-        if hasattr(main, 'pages'):
+        # Update threat map with real findings — try multiple access paths
+        try:
             dashboard = main.pages.get("Dashboard")
-            if dashboard and hasattr(dashboard, 'threat_map'):
-                dashboard.threat_map.update_with_findings(findings)
+            if dashboard:
+                # Try direct attribute
+                if hasattr(dashboard, 'threat_map'):
+                    dashboard.threat_map.update_with_findings(findings)
+                else:
+                    # Find ThreatMap widget inside dashboard
+                    from threat_map import ThreatMap
+                    maps = dashboard.findChildren(ThreatMap)
+                    if maps:
+                        maps[0].update_with_findings(findings)
+        except Exception as e:
+            logging.error(f"Map update failed: {e}")
         
         # Update activity feed
         if hasattr(main, 'activity_feed'):
@@ -430,6 +458,23 @@ class VaultPage(QWidget):
         # Update stat cards
         if hasattr(main, 'update_stat_cards'):
             main.update_stat_cards(findings)
+        
+        # Refresh scan activity chart
+        try:
+            dashboard = main.pages.get("Dashboard")
+            if dashboard and hasattr(dashboard, 'scan_chart'):
+                dashboard.scan_chart.refresh_chart()
+        except Exception as e:
+            import logging
+            logging.error(f"Chart refresh failed: {e}")
+        
+        # Update CVE matches
+        try:
+            cve_page = main.pages.get("CVE Feed")
+            if cve_page:
+                cve_page.update_matches(findings)
+        except Exception as e:
+            pass
         
         # Auto PDF if enabled
         if settings.get('auto_pdf'):

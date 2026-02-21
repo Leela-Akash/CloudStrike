@@ -32,11 +32,15 @@ body::after {
 #stageA.fade-out { opacity:0; pointer-events:none; }
 
 .terminal-window {
-  width:560px;
+  width:90%;
+  max-width:900px;
+  height:85vh;
   border:1px solid #1a3a1a;
   border-radius:8px;
   overflow:hidden;
   box-shadow:0 0 40px rgba(0,80,0,0.2),0 0 80px rgba(0,0,0,0.8);
+  display:flex;
+  flex-direction:column;
 }
 .terminal-titlebar {
   background:#0d1a0d; padding:10px 14px;
@@ -46,7 +50,7 @@ body::after {
 .tdot{width:11px;height:11px;border-radius:50%;}
 .td1{background:#ff5f57;}.td2{background:#febc2e;}.td3{background:#28c840;}
 .terminal-title-text{margin-left:8px;font-size:11px;color:#3a6a3a;letter-spacing:2px;}
-.terminal-body{background:#020a02;padding:20px 24px 24px;min-height:220px;}
+.terminal-body{background:#020a02;padding:20px 24px 24px;flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
 .boot-header{font-size:13px;color:#ff4500;letter-spacing:2px;margin-bottom:6px;opacity:0;animation:fadein 0.3s ease 0.3s forwards;}
 .boot-sub{font-size:10px;color:#2a5a2a;letter-spacing:1px;margin-bottom:18px;opacity:0;animation:fadein 0.3s ease 0.6s forwards;}
 @keyframes fadein{to{opacity:1}}
@@ -69,16 +73,16 @@ body::after {
 }
 #stageB.fade-in{opacity:1;}
 
-.radar-wrap{position:relative;width:220px;height:220px;margin-bottom:28px;}
+.radar-wrap{position:relative;width:280px;height:280px;margin-bottom:28px;}
 .ring{position:absolute;border-radius:50%;border:1px solid rgba(255,69,0,0.18);top:50%;left:50%;transform:translate(-50%,-50%);}
-.rg1{width:55px;height:55px;border-color:rgba(255,69,0,0.5);}
-.rg2{width:95px;height:95px;}.rg3{width:145px;height:145px;}.rg4{width:195px;height:195px;}
-.crosshair{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:220px;}
+.rg1{width:70px;height:70px;border-color:rgba(255,69,0,0.5);}
+.rg2{width:120px;height:120px;}.rg3{width:185px;height:185px;}.rg4{width:250px;height:250px;}
+.crosshair{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:280px;height:280px;}
 .crosshair::before{content:'';position:absolute;width:100%;height:1px;background:rgba(255,69,0,0.15);top:50%;left:0;}
 .crosshair::after{content:'';position:absolute;width:1px;height:100%;background:rgba(255,69,0,0.15);left:50%;top:0;}
-.sweep{position:absolute;width:110px;height:110px;top:50%;left:50%;transform-origin:0 0;animation:sweeprot 2.5s linear infinite;}
-.sweep::before{content:'';position:absolute;width:110px;height:110px;background:conic-gradient(from 0deg,transparent 60%,rgba(255,100,0,0.5) 100%);border-radius:0 110px 0 0;}
-@keyframes sweeprot{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.sweep{position:absolute;width:280px;height:280px;top:50%;left:50%;transform:translate(-50%,-50%);transform-origin:center center;animation:sweeprot 2.5s linear infinite;border-radius:50%;overflow:hidden;}
+.sweep::before{content:'';position:absolute;width:100%;height:100%;background:conic-gradient(from 0deg,transparent 70%,rgba(255,69,0,0.6) 85%,rgba(255,100,0,0.8) 100%);border-radius:50%;}
+@keyframes sweeprot{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
 .radar-center-dot{position:absolute;width:8px;height:8px;border-radius:50%;background:#ff4500;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 12px #ff4500,0 0 24px #ff450060;}
 .blip{position:absolute;border-radius:50%;background:#ff6b35;box-shadow:0 0 8px #ff4500;animation:blippulse 2.5s infinite;}
 @keyframes blippulse{0%,100%{opacity:0;transform:scale(0.5);}30%{opacity:1;transform:scale(1);}60%{opacity:0.4;transform:scale(1);}}
@@ -191,18 +195,31 @@ class SplashScreen(QWebEngineView):
     def __init__(self):
         super().__init__()
         
+        # Set black background BEFORE loading HTML to prevent white flash
+        self.setStyleSheet("background-color: #020100;")
+        from PyQt6.QtGui import QColor
+        self.page().setBackgroundColor(QColor('#020100'))
+        
         self.setWindowFlags(
             Qt.WindowType.FramelessWindowHint |
             Qt.WindowType.WindowStaysOnTopHint
         )
-        self.resize(900, 600)
         
-        # Center on screen
+        # Increase window size to fit radar fully
+        self.resize(1000, 680)
+        
+        # Re-center on screen with new size
         screen = QApplication.primaryScreen().geometry()
         self.move(
-            (screen.width() - 900) // 2,
-            (screen.height() - 600) // 2
+            (screen.width() - 1000) // 2,
+            (screen.height() - 680) // 2
         )
+        
+        # Hide window until content is ready
+        self.hide()
+        
+        # Show only when page finishes loading
+        self.loadFinished.connect(self._on_load_finished)
         
         settings = self.settings()
         settings.setAttribute(QWebEngineSettings.WebAttribute.JavascriptEnabled, True)
@@ -218,8 +235,12 @@ class SplashScreen(QWebEngineView):
         self._tmp_path = tmp.name
         self.load(QUrl.fromLocalFile(tmp.name))
         
-        # Auto-close after 11 seconds (Stage A + transition + Stage B)
-        QTimer.singleShot(11000, self._on_finished)
+        # Auto-close after 12 seconds (Stage A ~8.8s + Stage B 3s)
+        QTimer.singleShot(12000, self._on_finished)
+    
+    def _on_load_finished(self, ok):
+        """Show splash only after HTML is fully loaded — no white flash"""
+        self.show()
 
     def _on_finished(self):
         self.close()

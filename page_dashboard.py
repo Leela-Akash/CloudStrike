@@ -42,8 +42,8 @@ class DashboardPage(QWidget):
         chart_label.setObjectName("panelTitle")
         chart_layout.addWidget(chart_label)
         
-        activity_chart = ScanActivityChart()
-        chart_layout.addWidget(activity_chart, 1)
+        self.scan_chart = ScanActivityChart()
+        chart_layout.addWidget(self.scan_chart, 1)
         
         content_layout.addWidget(map_frame, 3)
         content_layout.addWidget(chart_frame, 2)

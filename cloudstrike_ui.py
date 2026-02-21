@@ -13,6 +13,7 @@ from page_incidents import IncidentsPage
 from page_compliance import CompliancePage
 from page_vault import VaultPage
 from page_integrations import IntegrationsPage
+from page_cve import CVEPage
 from activity_feed import ActivityFeed
 from detail_panels import FindingDetailPanel, IncidentDetailPanel
 
@@ -92,6 +93,9 @@ class CloudStrikeUI(QMainWindow):
         self.setWindowTitle("CloudStrike")
         self.setGeometry(100, 100, 1400, 900)
         
+        # Load Google Fonts
+        self.load_fonts()
+        
         central = QWidget()
         self.setCentralWidget(central)
         main_layout = QVBoxLayout(central)
@@ -129,6 +133,12 @@ class CloudStrikeUI(QMainWindow):
         # Check first launch and show appropriate page
         self.check_first_launch()
     
+    def load_fonts(self):
+        """Load Google Fonts for the application"""
+        # Skip font download - use system fonts with fallbacks
+        # Google Fonts will be used if available, otherwise fallback to system fonts
+        pass
+    
     def create_top_bar(self):
         top_bar = QFrame()
         top_bar.setObjectName("topBar")
@@ -144,10 +154,10 @@ class CloudStrikeUI(QMainWindow):
         
         self.stat_cards = []
         for title, value, change, up in [
-            ("Open Vulnerabilities", "247", "+12%", False),
-            ("Active Incidents", "18", "-8%", True),
-            ("Compliance Score", "94%", "+3%", True),
-            ("Time to Remediate", "4.2h", "-15%", True),
+            ("Open Vulnerabilities", "0", "—", True),
+            ("Active Incidents", "0", "—", True),
+            ("Compliance Score", "—", "—", True),
+            ("Time to Remediate", "—", "—", True),
         ]:
             card = StatCard(title, value, change, up)
             card.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -179,6 +189,7 @@ class CloudStrikeUI(QMainWindow):
             ("⚑", "Findings"),
             ("⚡", "Incidents"),
             ("✦", "Compliance"),
+            ("📡", "CVE Feed"),
             ("⊞", "Vault"),
             ("⚙", "Integrations")
         ]
@@ -221,6 +232,7 @@ class CloudStrikeUI(QMainWindow):
             "Findings":     FindingsPage(),
             "Incidents":    IncidentsPage(),
             "Compliance":   CompliancePage(),
+            "CVE Feed":     CVEPage(),
             "Vault":        VaultPage(),
             "Integrations": IntegrationsPage()
         }
@@ -402,7 +414,7 @@ class CloudStrikeUI(QMainWindow):
     def get_stylesheet(self):
         return """
             * {
-                font-family: 'Segoe UI', Arial, sans-serif;
+                font-family: 'Rajdhani', 'Segoe UI', Arial, sans-serif;
                 color: #e8e6e3;
             }
             
@@ -420,6 +432,7 @@ class CloudStrikeUI(QMainWindow):
                 font-weight: bold;
                 color: #ff4500;
                 padding-right: 20px;
+                font-family: 'Orbitron', 'Segoe UI';
             }
             
             #statCard {
@@ -445,6 +458,7 @@ class CloudStrikeUI(QMainWindow):
                 font-size: 26px;
                 font-weight: 600;
                 color: #ff6b35;
+                font-family: 'Orbitron', 'Segoe UI';
             }
             
             #statChange {
@@ -530,6 +544,7 @@ class CloudStrikeUI(QMainWindow):
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 margin-bottom: 8px;
+                font-family: 'Orbitron', 'Segoe UI';
             }
             
             #activityScroll {
@@ -697,7 +712,7 @@ class CloudStrikeUI(QMainWindow):
                 background-color: #0a0605;
                 border: 1px solid #2a1f1a;
                 color: #ff6b35;
-                font-family: 'Consolas', 'Courier New', monospace;
+                font-family: 'Share Tech Mono', 'Courier New', monospace;
                 font-size: 11px;
                 padding: 8px;
             }
@@ -876,7 +891,7 @@ class CloudStrikeUI(QMainWindow):
                 background-color: #020a02;
                 border: 1px solid #1a3a1a;
                 border-radius: 4px;
-                font-family: 'Courier New', monospace;
+                font-family: 'Share Tech Mono', 'Courier New', monospace;
                 font-size: 11px;
                 color: #e8e6e3;
                 padding: 12px;
@@ -939,7 +954,7 @@ class CloudStrikeUI(QMainWindow):
                 background-color: #020a02;
                 border: 1px solid #1a3a1a;
                 border-radius: 4px;
-                font-family: 'Courier New', monospace;
+                font-family: 'Share Tech Mono', 'Courier New', monospace;
                 font-size: 10px;
                 color: #ff6b35;
                 padding: 6px;

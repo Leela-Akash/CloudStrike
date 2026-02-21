@@ -1,23 +1,13 @@
 import pyqtgraph as pg
 from PyQt6.QtGui import QColor
 from datetime import datetime, timedelta
+import numpy as np
 
 class ScanActivityChart(pg.PlotWidget):
     def __init__(self):
         super().__init__()
-        
-        # Chart data: last 7 days
-        self.chart_data = [
-            {'date': 'Mon', 'critical': 12, 'high': 18, 'medium': 25},
-            {'date': 'Tue', 'critical': 8, 'high': 22, 'medium': 30},
-            {'date': 'Wed', 'critical': 15, 'high': 20, 'medium': 28},
-            {'date': 'Thu', 'critical': 10, 'high': 16, 'medium': 22},
-            {'date': 'Fri', 'critical': 18, 'high': 24, 'medium': 32},
-            {'date': 'Sat', 'critical': 6, 'high': 12, 'medium': 18},
-            {'date': 'Sun', 'critical': 14, 'high': 19, 'medium': 26},
-        ]
-        
         self.setup_chart()
+        self.refresh_chart()
     
     def setup_chart(self):
         self.setBackground('#0f0a08')
@@ -35,33 +25,75 @@ class ScanActivityChart(pg.PlotWidget):
         # Set labels
         self.setLabel('left', 'Findings', color=axis_color)
         self.setLabel('bottom', 'Day', color=axis_color)
+    
+    def refresh_chart(self):
+        """Load real scan history and update chart"""
+        try:
+            from settings_manager import get_scan_history_7days
+            history = get_scan_history_7days()
+
+            days = []
+            critical_vals = []
+            high_vals = []
+            medium_vals = []
+
+            for date_str, data in history.items():
+                # Show day name (Mon, Tue etc)
+                day_name = datetime.strptime(
+                    date_str, '%Y-%m-%d'
+                ).strftime('%a')
+                days.append(day_name)
+                critical_vals.append(data['critical'])
+                high_vals.append(data['high'])
+                medium_vals.append(data['medium'])
+
+            # Update chart with real data
+            self.update_chart(days, critical_vals, high_vals, medium_vals)
+
+        except Exception as e:
+            import logging
+            logging.error(f"Chart refresh failed: {e}")
+    
+    def update_chart(self, days, critical, high, medium):
+        """Update the pyqtgraph bars with new data"""
+        self.clear()
         
-        # X axis ticks
-        x_labels = [(i, day['date']) for i, day in enumerate(self.chart_data)]
-        self.getAxis('bottom').setTicks([x_labels])
+        if not days:
+            return
         
-        # Plot stacked bars
-        x = list(range(len(self.chart_data)))
+        x = np.arange(len(days))
         width = 0.6
         
-        # Critical (bottom layer)
-        critical = [day['critical'] for day in self.chart_data]
-        bar1 = pg.BarGraphItem(x=x, height=critical, width=width, brush='#e63c00', pen=None)
-        self.addItem(bar1)
-        
-        # High (middle layer)
-        high = [day['high'] for day in self.chart_data]
-        high_offset = critical
-        bar2 = pg.BarGraphItem(x=x, height=high, width=width, brush='#ff4500', pen=None, y0=high_offset)
-        self.addItem(bar2)
-        
-        # Medium (top layer)
-        medium = [day['medium'] for day in self.chart_data]
-        medium_offset = [critical[i] + high[i] for i in range(len(x))]
-        bar3 = pg.BarGraphItem(x=x, height=medium, width=width, brush='#ff6b35', pen=None, y0=medium_offset)
-        self.addItem(bar3)
+        # Stacked bars
+        bar_medium = pg.BarGraphItem(
+            x=x, height=medium,
+            width=width, brush='#ff6b35', pen=None
+        )
+        bar_high = pg.BarGraphItem(
+            x=x,
+            height=high,
+            width=width,
+            brush='#ff4500',
+            pen=None,
+            y0=medium
+        )
+        bar_critical = pg.BarGraphItem(
+            x=x,
+            height=critical,
+            width=width,
+            brush='#e63c00',
+            pen=None,
+            y0=[m+h for m,h in zip(medium, high)]
+        )
+        self.addItem(bar_medium)
+        self.addItem(bar_high)
+        self.addItem(bar_critical)
+
+        # Update x axis labels
+        ticks = [(i, days[i]) for i in range(len(days))]
+        self.getAxis('bottom').setTicks([ticks])
         
         # Set range
         self.setXRange(-0.5, len(x) - 0.5)
-        max_height = max([c + h + m for c, h, m in zip(critical, high, medium)])
-        self.setYRange(0, max_height * 1.1)
+        max_height = max([c + h + m for c, h, m in zip(critical, high, medium)]) if critical else 10
+        self.setYRange(0, max_height * 1.1 if max_height > 0 else 10)
