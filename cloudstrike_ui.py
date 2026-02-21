@@ -266,9 +266,14 @@ class CloudStrikeUI(QMainWindow):
         scroll.setObjectName("activityScroll")
         scroll.setWidgetResizable(True)
         scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        scroll.setStyleSheet("background-color: #0f0a08; border: none;")
         
         self.activity_feed = ActivityFeed()
         scroll.setWidget(self.activity_feed)
+        
+        # Force background on viewport to prevent white background
+        scroll.viewport().setStyleSheet("background-color: #0f0a08;")
+        
         default_layout.addWidget(scroll)
         
         right_stack.addWidget(default_widget)

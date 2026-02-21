@@ -148,6 +148,27 @@ class ActivityFeed(QWidget):
     def __init__(self):
         super().__init__()
         self.activities = []  # Start empty - populated from real scan
+        
+        # Hardcode background color to prevent white background on some machines
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #0f0a08;
+                color: #e8e6e3;
+            }
+            QScrollArea {
+                background-color: #0f0a08;
+                border: none;
+            }
+            QScrollBar:vertical {
+                background: #0a0705;
+                width: 6px;
+            }
+            QScrollBar::handle:vertical {
+                background: #2a1f1a;
+                border-radius: 3px;
+            }
+        """)
+        
         self.setup_ui()
     
     def setup_ui(self):
