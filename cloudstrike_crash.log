@@ -458,3 +458,214 @@ NameError: name 'QPushButton' is not defined
 2026-02-21 10:24:14,485 — DEBUG — Credentials row found: True
 2026-02-21 10:24:15,096 — DEBUG — All signals connected, calling scanner.start()
 2026-02-21 10:24:15,096 — DEBUG — Scanner thread started successfully
+2026-02-21 10:48:07,017 — DEBUG — start_scan called
+2026-02-21 10:48:07,018 — DEBUG — Credentials row found: True
+2026-02-21 10:48:07,367 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 10:48:07,368 — DEBUG — Scanner thread started successfully
+2026-02-21 15:45:06,098 — DEBUG — start_scan called
+2026-02-21 15:45:06,100 — DEBUG — Credentials row found: True
+2026-02-21 15:45:06,611 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 15:45:06,611 — DEBUG — Scanner thread started successfully
+2026-02-21 15:53:28,520 — DEBUG — start_scan called
+2026-02-21 15:53:28,521 — DEBUG — Credentials row found: True
+2026-02-21 15:53:28,522 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 15:53:28,522 — DEBUG — Scanner thread started successfully
+2026-02-21 15:56:39,124 — DEBUG — start_scan called
+2026-02-21 15:56:39,125 — DEBUG — Credentials row found: True
+2026-02-21 15:56:39,374 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 15:56:39,375 — DEBUG — Scanner thread started successfully
+2026-02-21 16:12:17,849 — DEBUG — start_scan called
+2026-02-21 16:12:17,850 — DEBUG — Credentials row found: True
+2026-02-21 16:12:17,860 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 16:12:17,861 — DEBUG — Scanner thread started successfully
+2026-02-21 16:12:19,878 — DEBUG — Initializing with Entra authority: https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3
+2026-02-21 16:12:19,879 — INFO — Request URL: 'https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/v2.0/.well-known/openid-configuration'
+Request method: 'GET'
+Request headers:
+    'User-Agent': 'azsdk-python-identity/1.15.0 Python/3.11.9 (Windows-10-10.0.26200-SP0)'
+No body was attached to the request
+2026-02-21 16:12:20,761 — INFO — Response status: 200
+Response headers:
+    'Cache-Control': 'max-age=86400, private'
+    'Content-Type': 'application/json; charset=utf-8'
+    'Strict-Transport-Security': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'Access-Control-Allow-Origin': 'REDACTED'
+    'Access-Control-Allow-Methods': 'REDACTED'
+    'P3P': 'REDACTED'
+    'x-ms-request-id': 'f27cf56e-946b-41d7-9145-12cfc5691500'
+    'x-ms-ests-server': 'REDACTED'
+    'x-ms-srs': 'REDACTED'
+    'Content-Security-Policy-Report-Only': 'REDACTED'
+    'X-XSS-Protection': 'REDACTED'
+    'Set-Cookie': 'REDACTED'
+    'Date': 'Sat, 21 Feb 2026 10:42:20 GMT'
+    'Content-Length': '1964'
+2026-02-21 16:12:20,765 — DEBUG — openid_config("https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/v2.0/.well-known/openid-configuration") = {'token_endpoint': 'https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/oauth2/v2.0/token', 'token_endpoint_auth_methods_supported': ['client_secret_post', 'private_key_jwt', 'client_secret_basic', 'self_signed_tls_client_auth'], 'jwks_uri': 'https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/discovery/v2.0/keys', 'response_modes_supported': ['query', 'fragment', 'form_post'], 'subject_types_supported': ['pairwise'], 'id_token_signing_alg_values_supported': ['RS256'], 'response_types_supported': ['code', 'id_token', 'code id_token', 'id_token token'], 'scopes_supported': ['openid', 'profile', 'email', 'offline_access'], 'issuer': 'https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/v2.0', 'request_uri_parameter_supported': False, 'userinfo_endpoint': 'https://graph.microsoft.com/oidc/userinfo', 'authorization_endpoint': 'https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/oauth2/v2.0/authorize', 'device_authorization_endpoint': 'https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/oauth2/v2.0/devicecode', 'http_logout_supported': True, 'frontchannel_logout_supported': True, 'end_session_endpoint': 'https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/oauth2/v2.0/logout', 'claims_supported': ['sub', 'iss', 'cloud_instance_name', 'cloud_instance_host_name', 'cloud_graph_host_name', 'msgraph_host', 'aud', 'exp', 'iat', 'auth_time', 'acr', 'nonce', 'preferred_username', 'name', 'tid', 'ver', 'at_hash', 'c_hash', 'email'], 'kerberos_endpoint': 'https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/kerberos', 'mtls_endpoint_aliases': {'token_endpoint': 'https://mtlsauth.microsoft.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/oauth2/v2.0/token'}, 'tls_client_certificate_bound_access_tokens': True, 'tenant_region_scope': 'AS', 'cloud_instance_name': 'microsoftonline.com', 'cloud_graph_host_name': 'graph.windows.net', 'msgraph_host': 'graph.microsoft.com', 'rbac_url': 'https://pas.windows.net'}
+2026-02-21 16:12:20,765 — DEBUG — Broker enabled? None
+2026-02-21 16:12:20,766 — DEBUG — Region to be used: None
+2026-02-21 16:12:21,061 — DEBUG — Generate or reuse correlation_id: e5cdf721-a39a-4501-9bef-20649b913a8b
+2026-02-21 16:12:21,062 — INFO — Request URL: 'https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/oauth2/v2.0/token'
+Request method: 'POST'
+Request headers:
+    'Accept': 'application/json'
+    'x-client-sku': 'REDACTED'
+    'x-client-ver': 'REDACTED'
+    'x-client-os': 'REDACTED'
+    'x-ms-lib-capability': 'REDACTED'
+    'client-request-id': 'REDACTED'
+    'x-client-current-telemetry': 'REDACTED'
+    'x-client-last-telemetry': 'REDACTED'
+    'User-Agent': 'azsdk-python-identity/1.15.0 Python/3.11.9 (Windows-10-10.0.26200-SP0)'
+A body is sent with the request
+2026-02-21 16:12:21,296 — INFO — Response status: 200
+Response headers:
+    'Cache-Control': 'no-store, no-cache'
+    'Pragma': 'no-cache'
+    'Content-Type': 'application/json; charset=utf-8'
+    'Expires': '-1'
+    'Strict-Transport-Security': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'P3P': 'REDACTED'
+    'client-request-id': 'REDACTED'
+    'x-ms-request-id': '4dc51de5-306b-4100-8d32-f83d8a2b6700'
+    'x-ms-ests-server': 'REDACTED'
+    'x-ms-clitelem': 'REDACTED'
+    'x-ms-srs': 'REDACTED'
+    'Content-Security-Policy-Report-Only': 'REDACTED'
+    'X-XSS-Protection': 'REDACTED'
+    'Set-Cookie': 'REDACTED'
+    'Date': 'Sat, 21 Feb 2026 10:42:21 GMT'
+    'Content-Length': '1955'
+2026-02-21 16:12:21,296 — DEBUG — event={
+    "client_id": "96c06527-a45a-48e5-a974-caf264d3e6e5",
+    "data": {
+        "claims": null,
+        "scope": [
+            "https://management.azure.com/.default"
+        ]
+    },
+    "environment": "login.microsoftonline.com",
+    "grant_type": "client_credentials",
+    "params": null,
+    "response": {
+        "access_token": "********",
+        "expires_in": 3599,
+        "ext_expires_in": 3599,
+        "token_type": "Bearer"
+    },
+    "scope": [
+        "https://management.azure.com/.default"
+    ],
+    "token_endpoint": "https://login.microsoftonline.com/808cc83e-a546-47e7-a03f-73a1ebba24f3/oauth2/v2.0/token"
+}
+2026-02-21 16:12:21,297 — INFO — ClientSecretCredential.get_token succeeded
+2026-02-21 16:12:21,297 — INFO — Request URL: 'https://management.azure.com/subscriptions/2b183467-88cd-4aec-a883-90637addec59/providers/Microsoft.Storage/storageAccounts?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ff63a969-0f11-11f1-a6b1-c97d7077b012'
+    'User-Agent': 'azsdk-python-mgmt-storage/24.0.0 Python/3.11.9 (Windows-10-10.0.26200-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2026-02-21 16:12:23,353 — INFO — Response status: 200
+Response headers:
+    'Cache-Control': 'no-cache'
+    'Pragma': 'no-cache'
+    'Content-Length': '12'
+    'Content-Type': 'application/json; charset=utf-8'
+    'Expires': '-1'
+    'x-ms-ratelimit-remaining-subscription-reads': '249'
+    'x-ms-ratelimit-remaining-subscription-global-reads': 'REDACTED'
+    'x-ms-request-id': 'd686dbb2-4d9e-4569-99f9-2c639a9c66ec'
+    'x-ms-correlation-request-id': 'REDACTED'
+    'x-ms-routing-request-id': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'X-Cache': 'REDACTED'
+    'X-MSEdge-Ref': 'Ref A: 5A746E24E78544FBABCDAB00BB9722E5 Ref B: MAA201060513037 Ref C: 2026-02-21T10:42:22Z'
+    'Date': 'Sat, 21 Feb 2026 10:42:23 GMT'
+2026-02-21 16:12:23,490 — DEBUG — Cache hit an AT
+2026-02-21 16:12:23,490 — DEBUG — Generate or reuse correlation_id: c528900f-b310-48b8-855a-dd14a4ef0089
+2026-02-21 16:12:23,491 — INFO — ClientSecretCredential.get_token succeeded
+2026-02-21 16:12:23,491 — INFO — Request URL: 'https://management.azure.com/subscriptions/2b183467-88cd-4aec-a883-90637addec59/providers/Microsoft.Compute/virtualMachines?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '018aebae-0f12-11f1-a9c6-c97d7077b012'
+    'User-Agent': 'azsdk-python-azure-mgmt-compute/30.5.0 Python/3.11.9 (Windows-10-10.0.26200-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2026-02-21 16:12:25,467 — INFO — Response status: 200
+Response headers:
+    'Cache-Control': 'no-cache'
+    'Pragma': 'no-cache'
+    'Content-Length': '12'
+    'Content-Type': 'application/json; charset=utf-8'
+    'Expires': '-1'
+    'x-ms-ratelimit-remaining-subscription-reads': '249'
+    'x-ms-ratelimit-remaining-subscription-global-reads': 'REDACTED'
+    'x-ms-request-id': '49cb53db-4b2e-4f76-8bee-bcad7ff3bb11'
+    'x-ms-correlation-request-id': 'REDACTED'
+    'x-ms-routing-request-id': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'X-Cache': 'REDACTED'
+    'X-MSEdge-Ref': 'Ref A: 488AB2B2EA444393B3178F2BCD6DE454 Ref B: MAA201060514053 Ref C: 2026-02-21T10:42:24Z'
+    'Date': 'Sat, 21 Feb 2026 10:42:25 GMT'
+2026-02-21 16:12:25,471 — DEBUG — Cache hit an AT
+2026-02-21 16:12:25,471 — DEBUG — Generate or reuse correlation_id: cb23a69b-d3a8-4eb3-a8da-834052bee132
+2026-02-21 16:12:25,471 — INFO — ClientSecretCredential.get_token succeeded
+2026-02-21 16:12:25,472 — INFO — Request URL: 'https://management.azure.com/subscriptions/2b183467-88cd-4aec-a883-90637addec59/providers/Microsoft.Network/networkSecurityGroups?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '02b917f1-0f12-11f1-9adc-c97d7077b012'
+    'User-Agent': 'azsdk-python-mgmt-network/25.2.0 Python/3.11.9 (Windows-10-10.0.26200-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2026-02-21 16:12:27,624 — INFO — Response status: 200
+Response headers:
+    'Cache-Control': 'no-cache'
+    'Pragma': 'no-cache'
+    'Content-Length': '12'
+    'Content-Type': 'application/json; charset=utf-8'
+    'Expires': '-1'
+    'x-ms-ratelimit-remaining-subscription-reads': '249'
+    'x-ms-ratelimit-remaining-subscription-global-reads': 'REDACTED'
+    'x-ms-request-id': '0f7de631-cac3-4373-991b-3e6dc3cf1dde'
+    'x-ms-correlation-request-id': 'REDACTED'
+    'x-ms-routing-request-id': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'X-Cache': 'REDACTED'
+    'X-MSEdge-Ref': 'Ref A: 16FBF36D5422473CA9F69B488F8DB0F8 Ref B: MAA201060513029 Ref C: 2026-02-21T10:42:26Z'
+    'Date': 'Sat, 21 Feb 2026 10:42:27 GMT'
+2026-02-21 16:12:27,709 — DEBUG — Cache hit an AT
+2026-02-21 16:12:27,710 — DEBUG — Generate or reuse correlation_id: 4e758d87-572e-4da9-a005-18da3a2a602c
+2026-02-21 16:12:27,710 — INFO — ClientSecretCredential.get_token succeeded
+2026-02-21 16:12:27,710 — INFO — Request URL: 'https://management.azure.com/subscriptions/2b183467-88cd-4aec-a883-90637addec59/resourcegroups?api-version=REDACTED'
+Request method: 'GET'
+Request headers:
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '040ebe2b-0f12-11f1-95a7-c97d7077b012'
+    'User-Agent': 'azsdk-python-azure-mgmt-resource/23.0.1 Python/3.11.9 (Windows-10-10.0.26200-SP0)'
+    'Authorization': 'REDACTED'
+No body was attached to the request
+2026-02-21 16:12:29,449 — INFO — Response status: 200
+Response headers:
+    'Cache-Control': 'no-cache'
+    'Pragma': 'no-cache'
+    'Content-Length': '965'
+    'Content-Type': 'application/json; charset=utf-8'
+    'Expires': '-1'
+    'x-ms-ratelimit-remaining-subscription-reads': '249'
+    'x-ms-ratelimit-remaining-subscription-global-reads': 'REDACTED'
+    'x-ms-request-id': '2b3ccb0a-4cd2-4b14-b48c-4bad80833d44'
+    'x-ms-correlation-request-id': 'REDACTED'
+    'x-ms-routing-request-id': 'REDACTED'
+    'Strict-Transport-Security': 'REDACTED'
+    'X-Content-Type-Options': 'REDACTED'
+    'X-Cache': 'REDACTED'
+    'X-MSEdge-Ref': 'Ref A: 3D6535BE799F46479C03C95361543C87 Ref B: MAA201060513051 Ref C: 2026-02-21T10:42:29Z'
+    'Date': 'Sat, 21 Feb 2026 10:42:29 GMT'

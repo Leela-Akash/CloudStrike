@@ -110,51 +110,122 @@ class CVEFetchThread(QThread):
 
     def run(self):
         try:
+            import urllib.request
+            import json
+            import ssl
+
+            # Create SSL context that doesn't verify — fixes corporate network issues
+            ctx = ssl.create_default_context()
+            ctx.check_hostname = False
+            ctx.verify_mode = ssl.CERT_NONE
+
+            # NVD API v2 — search for cloud CVEs published recently
             url = (
                 'https://services.nvd.nist.gov/rest/json/cves/2.0'
-                '?keywordSearch=AWS+Azure+GCP+cloud'
-                '&cvssV3Severity=CRITICAL'
-                '&resultsPerPage=20'
+                '?keywordSearch=AWS%20cloud%20security'
+                '&resultsPerPage=15'
             )
+
             req = urllib.request.Request(
                 url,
-                headers={'User-Agent': 'CloudStrike/1.0'}
+                headers={
+                    'User-Agent': 'CloudStrike-Security-Tool/1.0',
+                    'Accept': 'application/json'
+                }
             )
-            with urllib.request.urlopen(req, timeout=10) as resp:
-                data = json.loads(resp.read())
-                cves = []
-                for item in data.get('vulnerabilities', []):
-                    cve = item.get('cve', {})
-                    cve_id = cve.get('id', '')
-                    desc = ''
-                    for d in cve.get('descriptions', []):
-                        if d.get('lang') == 'en':
-                            desc = d.get('value', '')
-                            break
-                    score = 0.0
-                    severity = 'LOW'
-                    metrics = cve.get('metrics', {})
-                    for key in ['cvssMetricV31', 'cvssMetricV30']:
-                        if key in metrics and metrics[key]:
-                            data_m = metrics[key][0].get('cvssData', {})
-                            score = data_m.get('baseScore', 0.0)
-                            severity = data_m.get('baseSeverity', 'LOW')
-                            break
-                    published = cve.get('published', '')[:10]
+
+            with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
+                raw = resp.read()
+                data = json.loads(raw)
+
+            cves = []
+            for item in data.get('vulnerabilities', []):
+                cve = item.get('cve', {})
+                cve_id = cve.get('id', '')
+
+                # Get description
+                desc = ''
+                for d in cve.get('descriptions', []):
+                    if d.get('lang') == 'en':
+                        desc = d.get('value', '')[:250]
+                        break
+
+                # Get CVSS score
+                score = 0.0
+                severity = 'MEDIUM'
+                metrics = cve.get('metrics', {})
+                for key in ['cvssMetricV31', 'cvssMetricV30', 'cvssMetricV2']:
+                    if key in metrics and metrics[key]:
+                        m = metrics[key][0]
+                        cvss_data = m.get('cvssData', {})
+                        score = cvss_data.get('baseScore', 0.0)
+                        severity = (
+                            cvss_data.get('baseSeverity') or
+                            m.get('baseSeverity', 'MEDIUM')
+                        ).upper()
+                        break
+
+                # Get published date
+                published = cve.get('published', '')
+                if published:
+                    from datetime import datetime, timezone
+                    try:
+                        pub_dt = datetime.fromisoformat(
+                            published.replace('Z', '+00:00')
+                        )
+                        now = datetime.now(timezone.utc)
+                        diff = now - pub_dt
+                        if diff.days == 0:
+                            hours = diff.seconds // 3600
+                            pub_str = f"{hours} hr ago" if hours > 0 else "Just now"
+                        elif diff.days == 1:
+                            pub_str = "Yesterday"
+                        else:
+                            pub_str = f"{diff.days} days ago"
+                    except:
+                        pub_str = published[:10]
+                else:
+                    pub_str = 'Unknown'
+
+                # Detect services
+                desc_lower = desc.lower()
+                services = []
+                if any(x in desc_lower for x in ['aws', 'amazon', 's3', 'ec2', 'iam', 'lambda']):
+                    services.append('AWS')
+                if any(x in desc_lower for x in ['azure', 'microsoft', 'blob']):
+                    services.append('Azure')
+                if any(x in desc_lower for x in ['gcp', 'google cloud', 'gcs']):
+                    services.append('GCP')
+                if not services:
+                    services = ['Cloud']
+
+                if cve_id and desc:
                     cves.append({
                         'id':          cve_id,
                         'score':       score,
                         'severity':    severity,
-                        'description': desc[:200],
-                        'services':    ['AWS', 'Cloud'],
-                        'published':   published,
+                        'description': desc,
+                        'services':    services,
+                        'published':   pub_str,
                         'matched':     None
                     })
-                if cves:
-                    self.cves_loaded.emit(cves)
-                else:
-                    self.fetch_failed.emit()
-        except Exception:
+
+            if cves:
+                self.cves_loaded.emit(cves)
+            else:
+                self.fetch_failed.emit()
+
+        except urllib.error.HTTPError as e:
+            # NVD returns 403 if rate limited — wait and use demo
+            print(f"CVE API HTTP Error: {e.code} {e.reason}")
+            self.fetch_failed.emit()
+        except urllib.error.URLError as e:
+            print(f"CVE API URL Error: {e.reason}")
+            self.fetch_failed.emit()
+        except Exception as e:
+            import traceback
+            print(f"CVE API Error: {e}")
+            traceback.print_exc()
             self.fetch_failed.emit()
 
 
@@ -258,8 +329,8 @@ class CVEPage(QWidget):
         self.all_cves = DEMO_CVES.copy()
         self.current_filter = 'ALL'
         self._build_ui()
-        # Auto-fetch real CVEs on load
-        QTimer.singleShot(500, self.fetch_cves)
+        # Auto-fetch real CVEs on load - wait 2 seconds for page to load
+        QTimer.singleShot(2000, self.fetch_cves)
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
@@ -395,9 +466,9 @@ class CVEPage(QWidget):
         self._populate_cards(filtered)
 
     def fetch_cves(self):
-        self.status_label.setText("Fetching live CVEs from NVD API...")
+        self.status_label.setText("Connecting to NVD API (nvd.nist.gov)...")
         self.refresh_btn.setEnabled(False)
-        self.live_label.setText("● FETCHING...")
+        self.live_label.setText("● CONNECTING...")
         self.live_label.setStyleSheet(
             "color:#ff6b35; font-size:10px; letter-spacing:1px;"
         )
@@ -433,7 +504,7 @@ class CVEPage(QWidget):
         self._populate_cards(self.all_cves)
         self.status_label.setText(
             f"Last updated: {datetime.now().strftime('%H:%M:%S')} — "
-            f"Demo data (NVD API unavailable)"
+            f"Demo data (Check console for API error details)"
         )
         self.live_label.setText("● DEMO MODE")
         self.live_label.setStyleSheet(

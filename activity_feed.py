@@ -147,75 +147,7 @@ class ActivityFeedItem(QFrame):
 class ActivityFeed(QWidget):
     def __init__(self):
         super().__init__()
-        
-        # Activity data
-        self.activities = [
-            {
-                'severity': 'critical',
-                'title': 'S3 bucket exposed publicly',
-                'time': '2 min ago',
-                'resource': 'arn:aws:s3:::prod-data-bucket',
-                'description': 'S3 bucket has public read access enabled, exposing sensitive data to the internet.',
-                'fix': 'Remove public access by updating bucket policy and enabling Block Public Access settings.'
-            },
-            {
-                'severity': 'high',
-                'title': 'IAM policy overly permissive',
-                'time': '8 min ago',
-                'resource': 'arn:aws:iam::123456789012:policy/DevPolicy',
-                'description': 'IAM policy grants wildcard permissions on all resources, violating least privilege principle.',
-                'fix': 'Restrict policy to specific resources and actions required for the role.'
-            },
-            {
-                'severity': 'medium',
-                'title': 'Unencrypted RDS instance',
-                'time': '15 min ago',
-                'resource': 'arn:aws:rds:us-east-1:123456789012:db:prod-db',
-                'description': 'RDS database instance does not have encryption at rest enabled.',
-                'fix': 'Enable encryption by creating an encrypted snapshot and restoring to a new instance.'
-            },
-            {
-                'severity': 'low',
-                'title': 'CloudTrail logging disabled',
-                'time': '23 min ago',
-                'resource': 'arn:aws:cloudtrail:us-east-1:123456789012:trail/main',
-                'description': 'CloudTrail is not logging API calls, reducing audit visibility.',
-                'fix': 'Enable CloudTrail logging and configure log file validation.'
-            },
-            {
-                'severity': 'critical',
-                'title': 'SQL injection vulnerability',
-                'time': '31 min ago',
-                'resource': 'Lambda function: user-api-handler',
-                'description': 'Lambda function constructs SQL queries using unsanitized user input.',
-                'fix': 'Use parameterized queries or ORM to prevent SQL injection attacks.'
-            },
-            {
-                'severity': 'high',
-                'title': 'Outdated Lambda runtime',
-                'time': '45 min ago',
-                'resource': 'arn:aws:lambda:us-east-1:123456789012:function:auth',
-                'description': 'Lambda function uses deprecated Node.js 12 runtime with known vulnerabilities.',
-                'fix': 'Update to Node.js 18 or later and test for compatibility.'
-            },
-            {
-                'severity': 'medium',
-                'title': 'Security group allows 0.0.0.0/0',
-                'time': '1 hr ago',
-                'resource': 'sg-0a1b2c3d4e5f6g7h8',
-                'description': 'Security group allows inbound SSH access from any IP address.',
-                'fix': 'Restrict SSH access to specific IP ranges or use AWS Systems Manager Session Manager.'
-            },
-            {
-                'severity': 'low',
-                'title': 'MFA not enabled',
-                'time': '1 hr ago',
-                'resource': 'IAM user: admin@company.com',
-                'description': 'Root account does not have multi-factor authentication enabled.',
-                'fix': 'Enable virtual or hardware MFA device for the root account immediately.'
-            },
-        ]
-        
+        self.activities = []  # Start empty - populated from real scan
         self.setup_ui()
     
     def setup_ui(self):
@@ -223,9 +155,12 @@ class ActivityFeed(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(8)
         
-        for activity in self.activities:
-            item = ActivityFeedItem(activity)
-            layout.addWidget(item)
+        # Show placeholder when empty
+        placeholder = QLabel("No scan data yet.\nRun a scan to see findings here.")
+        placeholder.setObjectName("activityTime")
+        placeholder.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        placeholder.setStyleSheet("padding:40px;color:#4a3a2a;")
+        layout.addWidget(placeholder)
         
         layout.addStretch()
     

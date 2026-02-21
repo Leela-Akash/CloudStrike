@@ -163,6 +163,7 @@ setTimeout(function() {{
       }, 500);
     } else {
       var regionCoords = {
+        // AWS Regions
         'us-east-1':      [39.0, -77.5],
         'us-east-2':      [40.4, -82.9],
         'us-west-1':      [37.3, -121.9],
@@ -174,7 +175,39 @@ setTimeout(function() {{
         'ap-southeast-1': [1.3, 103.8],
         'ap-northeast-1': [35.7, 139.7],
         'ca-central-1':   [45.5, -73.6],
-        'sa-east-1':      [-23.5, -46.6]
+        'sa-east-1':      [-23.5, -46.6],
+        // Azure Regions
+        'eastus':         [37.3, -79.8],
+        'eastus2':        [36.6, -78.3],
+        'westus':         [37.7, -122.4],
+        'westus2':        [47.2, -119.8],
+        'westeurope':     [52.3, 4.9],
+        'northeurope':    [53.3, -6.2],
+        'southeastasia':  [1.3, 103.8],
+        'eastasia':       [22.3, 114.2],
+        'australiaeast':  [-33.8, 151.2],
+        'brazilsouth':    [-23.5, -46.6],
+        'canadacentral':  [43.7, -79.4],
+        'centralindia':   [18.5, 73.9],
+        'japaneast':      [35.7, 139.7],
+        'uksouth':        [51.5, -0.1],
+        // GCP Regions
+        'us-central1':    [41.2, -95.9],
+        'us-east1':       [33.1, -80.0],
+        'us-east4':       [39.0, -77.5],
+        'us-west1':       [45.5, -122.6],
+        'us-west2':       [34.0, -118.2],
+        'europe-west1':   [50.4, 3.8],
+        'europe-west2':   [51.5, -0.1],
+        'europe-west3':   [50.1, 8.7],
+        'asia-south1':    [19.0, 72.8],
+        'asia-southeast1':[1.3, 103.8],
+        'asia-northeast1':[35.7, 139.7],
+        'australia-southeast1':[-33.8, 151.2],
+        'southamerica-east1':[-23.5, -46.6],
+        // Generic fallbacks
+        'global':         [20.0, 10.0],
+        'us':             [39.0, -95.0]
       };
       var coords = regionCoords[regionId];
       if (coords) {

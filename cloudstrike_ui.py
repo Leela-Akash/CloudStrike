@@ -349,7 +349,7 @@ class CloudStrikeUI(QMainWindow):
         """Update dashboard stat cards with real scan data"""
         counts = {'CRITICAL':0, 'HIGH':0, 'MEDIUM':0, 'LOW':0}
         for f in findings:
-            sev = f.get('severity', 'LOW')
+            sev = f.get('severity', 'LOW').upper()
             counts[sev] = counts.get(sev, 0) + 1
 
         total = len(findings)
@@ -358,9 +358,33 @@ class CloudStrikeUI(QMainWindow):
         # Directly update stat card value labels by object name
         from PyQt6.QtWidgets import QLabel
         all_labels = self.findChildren(QLabel, 'statValue')
-        if len(all_labels) >= 2:
+        if len(all_labels) >= 1:
             all_labels[0].setText(str(total))
+        if len(all_labels) >= 2:
             all_labels[1].setText(str(critical_high))
+        
+        # Calculate and update remediation time
+        self.calculate_remediation_time(findings)
+    
+    def calculate_remediation_time(self, findings):
+        """Calculate estimated time to remediate all findings"""
+        hours = 0
+        for f in findings:
+            sev = f.get('severity', 'LOW')
+            if sev == 'CRITICAL':   hours += 4
+            elif sev == 'HIGH':     hours += 2
+            elif sev == 'MEDIUM':   hours += 1
+            elif sev == 'LOW':      hours += 0.5
+        
+        # Find Time to Remediate stat card (index 3)
+        from PyQt6.QtWidgets import QLabel
+        labels = self.findChildren(QLabel, 'statValue')
+        if len(labels) >= 4:
+            if hours < 24:
+                labels[3].setText(f"{hours:.1f}h")
+            else:
+                days = hours / 8  # 8 hour work day
+                labels[3].setText(f"{days:.1f}d")
     
     def show_finding_detail(self, finding_data):
         self.finding_detail.load(finding_data)

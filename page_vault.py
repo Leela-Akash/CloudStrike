@@ -299,6 +299,13 @@ class VaultPage(QWidget):
             
             provider = row[1] if row else 'AWS'
             
+            # Clear previous findings before starting new scan
+            main = self.window()
+            if main and hasattr(main, 'pages'):
+                findings_page = main.pages.get("Findings")
+                if findings_page and hasattr(findings_page, 'clear_findings'):
+                    findings_page.clear_findings()
+            
             if provider == 'GCP':
                 credentials = {
                     'project_id': row[3],
@@ -412,6 +419,15 @@ class VaultPage(QWidget):
         self.scan_status.setText(f"✓ SCAN COMPLETE — {len(findings)} findings")
         self.scan_btn.setEnabled(True)
         
+        # Get provider from database
+        try:
+            conn = sqlite3.connect(self.db_path)
+            row = conn.execute("SELECT provider FROM credentials ORDER BY id DESC LIMIT 1").fetchone()
+            conn.close()
+            provider = row[0] if row else 'AWS'
+        except:
+            provider = 'AWS'
+        
         # Record scan to history
         try:
             from settings_manager import record_scan
@@ -473,6 +489,14 @@ class VaultPage(QWidget):
             cve_page = main.pages.get("CVE Feed")
             if cve_page:
                 cve_page.update_matches(findings)
+        except Exception as e:
+            pass
+        
+        # Update compliance page with provider info
+        try:
+            compliance = main.pages.get("Compliance")
+            if compliance:
+                compliance.update_from_findings(findings, provider)
         except Exception as e:
             pass
         
