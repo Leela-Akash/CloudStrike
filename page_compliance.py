@@ -121,20 +121,22 @@ class CompliancePage(QWidget):
                 labels[2].setText(f"{score}%")
     
     def show_non_aws_message(self, provider):
-        """Show message when scanning non-AWS providers"""
-        self.table.setRowCount(1)
-        self.table.setColumnCount(1)
-        self.table.horizontalHeader().setVisible(False)
-        
+        """Show N/A status for non-AWS providers"""
         from PyQt6.QtWidgets import QTableWidgetItem
+        from PyQt6.QtGui import QColor
         from PyQt6.QtCore import Qt
         
-        item = QTableWidgetItem(
-            f"Compliance checks are based on CIS AWS Foundations Benchmark.\n\n"
-            f"Currently scanning {provider}.\n\n"
-            f"Switch to AWS credentials to see compliance results."
-        )
-        item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        item.setFlags(Qt.ItemFlag.ItemIsEnabled)
-        self.table.setItem(0, 0, item)
-        self.table.setRowHeight(0, 200)
+        # Update all status cells to show N/A
+        for row in range(self.table.rowCount()):
+            status_item = QTableWidgetItem(f"N/A — {provider}")
+            status_item.setForeground(QColor('#888888'))
+            status_item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.table.setItem(row, 2, status_item)
+        
+        # Update compliance score to N/A
+        main = self.window()
+        if main:
+            from PyQt6.QtWidgets import QLabel
+            labels = main.findChildren(QLabel, 'statValue')
+            if len(labels) >= 3:
+                labels[2].setText("N/A")

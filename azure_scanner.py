@@ -2,6 +2,12 @@ import multiprocessing
 from datetime import datetime
 from PyQt6.QtCore import QThread, pyqtSignal
 
+# Windows multiprocessing fix
+try:
+    multiprocessing.set_start_method('spawn', force=True)
+except RuntimeError:
+    pass  # Already set
+
 def run_azure_scan_process(credentials, result_queue):
     try:
         from azure.identity import ClientSecretCredential
@@ -88,15 +94,36 @@ def run_azure_scan_process(credentials, result_queue):
                         rule.direction == 'Inbound' and
                         rule.source_address_prefix in ['*','0.0.0.0/0','Internet']):
                         port = rule.destination_port_range
-                        sev = 'CRITICAL' if port in ['22','3389','*'] else 'HIGH'
-                        add_finding(
-                            sev,
-                            f'Open NSG Rule: {nsg.name} port {port}',
-                            'Azure NSG',
-                            nsg.location,
-                            f'NSG {nsg.name} allows inbound from Internet on port {port}.',
-                            f'az network nsg rule delete --resource-group <rg> --nsg-name {nsg.name} --name {rule.name}'
-                        )
+                        
+                        # Specific checks for SSH and RDP
+                        if port == '22':
+                            add_finding(
+                                'CRITICAL',
+                                f'NSG Allows SSH from Internet: {nsg.name}',
+                                'Azure NSG',
+                                nsg.location,
+                                f'Network Security Group {nsg.name} allows SSH port 22 from any source.',
+                                f'az network nsg rule delete --resource-group <rg> --nsg-name {nsg.name} --name {rule.name}'
+                            )
+                        elif port == '3389':
+                            add_finding(
+                                'CRITICAL',
+                                f'NSG Allows RDP from Internet: {nsg.name}',
+                                'Azure NSG',
+                                nsg.location,
+                                f'Network Security Group {nsg.name} allows RDP port 3389 from any source.',
+                                f'az network nsg rule delete --resource-group <rg> --nsg-name {nsg.name} --name {rule.name}'
+                            )
+                        else:
+                            sev = 'CRITICAL' if port == '*' else 'HIGH'
+                            add_finding(
+                                sev,
+                                f'Open NSG Rule: {nsg.name} port {port}',
+                                'Azure NSG',
+                                nsg.location,
+                                f'NSG {nsg.name} allows inbound from Internet on port {port}.',
+                                f'az network nsg rule delete --resource-group <rg> --nsg-name {nsg.name} --name {rule.name}'
+                            )
         except Exception as e:
             result_queue.put({'type': 'error_check', 'msg': f'NSG check failed: {e}'})
 

@@ -378,16 +378,26 @@ class VaultPage(QWidget):
         self.scan_status.setText(f"● {pct}% — Checking {check_name}...")
     
     def on_finding(self, finding):
-        if self.parent_window and hasattr(self.parent_window, 'pages'):
-            self.parent_window.pages["Findings"].add_finding(finding)
-        
-        from settings_manager import get_all_settings
-        settings = get_all_settings()
-        sev = finding.get('severity', '')
-        if sev == 'CRITICAL' and settings.get('notify_critical'):
-            self.show_notification(finding)
-        elif sev == 'HIGH' and settings.get('notify_high'):
-            self.show_notification(finding)
+        """Called when scanner emits a finding - add to findings page and activity feed"""
+        try:
+            # Add finding to findings page
+            main = self.window()
+            if main and hasattr(main, 'pages'):
+                findings_page = main.pages.get("Findings")
+                if findings_page:
+                    findings_page.add_finding(finding)
+            
+            # Show notifications if enabled
+            from settings_manager import get_all_settings
+            settings = get_all_settings()
+            sev = finding.get('severity', '')
+            if sev == 'CRITICAL' and settings.get('notify_critical'):
+                self.show_notification(finding)
+            elif sev == 'HIGH' and settings.get('notify_high'):
+                self.show_notification(finding)
+        except Exception as e:
+            import logging
+            logging.error(f"on_finding error: {e}")
     
     def show_notification(self, finding):
         from PyQt6.QtWidgets import QMessageBox

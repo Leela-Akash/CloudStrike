@@ -175,6 +175,7 @@ class ActivityFeed(QWidget):
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(8)
+        layout.setAlignment(Qt.AlignmentFlag.AlignTop)
         
         # Show placeholder when empty
         placeholder = QLabel("No scan data yet.\nRun a scan to see findings here.")
@@ -204,6 +205,7 @@ class ActivityFeed(QWidget):
                 key=lambda x: sev_order.get(x.get('severity','LOW'), 4)
             )
             
+            # Add items first, then stretch at bottom
             for i, finding in enumerate(sorted_findings):
                 activity = {
                     'severity': finding.get('severity', 'LOW').lower(),
@@ -216,6 +218,7 @@ class ActivityFeed(QWidget):
                 item = ActivityFeedItem(activity)
                 self.layout().addWidget(item)
             
+            # Stretch at bottom to push items to top
             self.layout().addStretch()
         except Exception as e:
             logging.error(f"clear_and_reload error: {e}")

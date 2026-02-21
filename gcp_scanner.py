@@ -3,6 +3,12 @@ import time
 from datetime import datetime
 from PyQt6.QtCore import QThread, pyqtSignal
 
+# Windows multiprocessing fix
+try:
+    multiprocessing.set_start_method('spawn', force=True)
+except RuntimeError:
+    pass  # Already set
+
 
 # ── DEMO DATA FALLBACK ──
 GCP_DEMO_FINDINGS = [
@@ -228,11 +234,11 @@ def run_gcp_scan_process(credentials, result_queue):
                     region = region_map.get(location, location)
                     
                     add_finding(
-                        'LOW',
+                        'MEDIUM',
                         f'GCS Versioning Disabled: {bucket.name}',
                         'GCS',
                         region,
-                        f'Bucket {bucket.name} has no versioning.',
+                        f'Bucket {bucket.name} versioning not enabled — deleted files unrecoverable.',
                         f'gsutil versioning set on gs://{bucket.name}'
                     )
         except Exception as e:
@@ -249,16 +255,28 @@ def run_gcp_scan_process(credentials, result_queue):
                     for allowed in fw.get('allowed', []):
                         source_ranges = fw.get('sourceRanges', [])
                         if '0.0.0.0/0' in source_ranges:
-                            ports = allowed.get('ports', ['all'])
-                            sev = 'CRITICAL' if any(p in ['22', '3389'] for p in ports) else 'HIGH'
-                            add_finding(
-                                sev,
-                                f'Open Firewall: {fw["name"]} port {ports}',
-                                'Compute',
-                                'global',
-                                f'Firewall {fw["name"]} allows inbound from 0.0.0.0/0.',
-                                f'gcloud compute firewall-rules update {fw["name"]} --source-ranges=YOUR_IP/32'
-                            )
+                            ports = allowed.get('ports', [])
+                            
+                            # Check for all traffic allowed
+                            if not ports:
+                                add_finding(
+                                    'CRITICAL',
+                                    f'Firewall Allows ALL Traffic: {fw["name"]}',
+                                    'Compute',
+                                    'global',
+                                    f'Firewall rule {fw["name"]} allows all ingress traffic from internet.',
+                                    f'gcloud compute firewall-rules delete {fw["name"]}'
+                                )
+                            else:
+                                sev = 'CRITICAL' if any(p in ['22', '3389'] for p in ports) else 'HIGH'
+                                add_finding(
+                                    sev,
+                                    f'Open Firewall: {fw["name"]} port {ports}',
+                                    'Compute',
+                                    'global',
+                                    f'Firewall {fw["name"]} allows inbound from 0.0.0.0/0.',
+                                    f'gcloud compute firewall-rules update {fw["name"]} --source-ranges=YOUR_IP/32'
+                                )
         except Exception as e:
             result_queue.put({'type': 'error_check', 'msg': f'Firewall check failed: {e}'})
 
@@ -267,21 +285,33 @@ def run_gcp_scan_process(credentials, result_queue):
         try:
             compute = googleapiclient.discovery.build('compute', 'v1', credentials=gcp_creds)
             agg = compute.instances().aggregatedList(project=project_id).execute()
-            for zone_data in agg.get('items', {}).values():
+            for zone_name, zone_data in agg.get('items', {}).items():
                 for instance in zone_data.get('instances', []):
+                    zone = instance.get('zone', '').split('/')[-1]
+                    region = '-'.join(zone.split('-')[:-1]) if zone and '-' in zone else 'global'
+                    
+                    # Check for public IPs
                     for iface in instance.get('networkInterfaces', []):
                         if iface.get('accessConfigs'):
-                            # Extract zone and strip suffix (us-central1-a → us-central1)
-                            zone = instance.get('zone', '').split('/')[-1]
-                            region = '-'.join(zone.split('-')[:-1]) if zone and '-' in zone else 'global'
-                            
                             add_finding(
                                 'MEDIUM',
                                 f'VM Public IP: {instance["name"]}',
                                 'Compute',
                                 region,
                                 f'VM {instance["name"]} has external IP.',
-                                f'gcloud compute instances delete-access-config {instance["name"]} --access-config-name="External NAT"'
+                                f'gcloud compute instances delete-access-config {instance["name"]} --access-config-name="External NAT" --zone {zone}'
+                            )
+                    
+                    # Check for default service account
+                    for sa in instance.get('serviceAccounts', []):
+                        if 'compute@developer' in sa.get('email', '') or '-compute@developer' in sa.get('email', ''):
+                            add_finding(
+                                'HIGH',
+                                f'VM Uses Default Service Account: {instance["name"]}',
+                                'Compute',
+                                region,
+                                f'VM {instance["name"]} uses default compute service account with broad permissions.',
+                                f'gcloud compute instances set-service-account {instance["name"]} --service-account=custom-sa@{project_id}.iam.gserviceaccount.com --zone {zone}'
                             )
         except Exception as e:
             result_queue.put({'type': 'error_check', 'msg': f'VM check failed: {e}'})

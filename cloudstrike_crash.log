@@ -689,3 +689,99 @@ Response headers:
 2026-02-21 22:32:16,375 — INFO — file_cache is only supported with oauth2client<4.0.0
 2026-02-21 22:32:16,426 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/aggregated/instances?alt=json
 2026-02-21 22:32:17,117 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 23:01:53,955 — DEBUG — start_scan called
+2026-02-21 23:01:53,957 — DEBUG — Credentials row found: True
+2026-02-21 23:01:53,967 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 23:01:53,967 — DEBUG — Scanner thread started successfully
+2026-02-21 23:01:57,986 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 23:01:58,022 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/global/firewalls?alt=json
+2026-02-21 23:01:58,944 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 23:01:58,948 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 23:01:59,005 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/aggregated/instances?alt=json
+2026-02-21 23:01:59,836 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 23:02:11,784 — CRITICAL — UNCAUGHT EXCEPTION
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\connection.py", line 979, in rebuild_pipe_connection
+    handle = dh.detach()
+             ^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\reduction.py", line 131, in detach
+    return _winapi.DuplicateHandle(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Access is denied
+2026-02-21 23:04:29,431 — DEBUG — start_scan called
+2026-02-21 23:04:29,434 — DEBUG — Credentials row found: True
+2026-02-21 23:04:29,447 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 23:04:29,447 — DEBUG — Scanner thread started successfully
+2026-02-21 23:04:33,480 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 23:04:33,511 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/global/firewalls?alt=json
+2026-02-21 23:04:34,193 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 23:04:34,197 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 23:04:34,285 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/aggregated/instances?alt=json
+2026-02-21 23:04:35,015 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 23:04:46,504 — CRITICAL — UNCAUGHT EXCEPTION
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\connection.py", line 979, in rebuild_pipe_connection
+    handle = dh.detach()
+             ^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\reduction.py", line 131, in detach
+    return _winapi.DuplicateHandle(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Access is denied
+2026-02-21 23:06:45,566 — DEBUG — start_scan called
+2026-02-21 23:06:45,567 — DEBUG — Credentials row found: True
+2026-02-21 23:06:45,570 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 23:06:45,571 — DEBUG — Scanner thread started successfully
+2026-02-21 23:06:52,421 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 23:06:52,476 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/global/firewalls?alt=json
+2026-02-21 23:06:53,350 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 23:06:53,353 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 23:06:53,401 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/aggregated/instances?alt=json
+2026-02-21 23:06:54,397 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 23:07:01,786 — CRITICAL — UNCAUGHT EXCEPTION
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\spawn.py", line 132, in _main
+    self = reduction.pickle.load(from_parent)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\connection.py", line 979, in rebuild_pipe_connection
+    handle = dh.detach()
+             ^^^^^^^^^^^
+  File "C:\Users\hp\AppData\Local\Programs\Python\Python311\Lib\multiprocessing\reduction.py", line 131, in detach
+    return _winapi.DuplicateHandle(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [WinError 5] Access is denied
+2026-02-21 23:48:33,814 — DEBUG — start_scan called
+2026-02-21 23:48:33,816 — DEBUG — Credentials row found: True
+2026-02-21 23:48:33,819 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 23:48:33,820 — DEBUG — Scanner thread started successfully
+2026-02-21 23:48:39,370 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 23:48:39,618 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/global/firewalls?alt=json
+2026-02-21 23:48:40,846 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 23:48:40,849 — INFO — file_cache is only supported with oauth2client<4.0.0
+2026-02-21 23:48:40,897 — DEBUG — URL being requested: GET https://compute.googleapis.com/compute/v1/projects/gen-lang-client-0161615307/aggregated/instances?alt=json
+2026-02-21 23:48:41,901 — WARNING — Encountered 403 Forbidden with reason "accessNotConfigured"
+2026-02-21 23:48:46,856 — DEBUG — start_scan called
+2026-02-21 23:48:46,857 — DEBUG — Credentials row found: True
+2026-02-21 23:48:47,256 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 23:48:47,257 — DEBUG — Scanner thread started successfully
+2026-02-21 23:54:04,965 — DEBUG — start_scan called
+2026-02-21 23:54:04,966 — DEBUG — Credentials row found: True
+2026-02-21 23:54:05,380 — DEBUG — All signals connected, calling scanner.start()
+2026-02-21 23:54:05,380 — DEBUG — Scanner thread started successfully

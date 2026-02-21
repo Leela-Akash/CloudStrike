@@ -3,6 +3,12 @@ import boto3
 import logging
 from PyQt6.QtCore import QThread, pyqtSignal
 
+# Windows multiprocessing fix
+try:
+    multiprocessing.set_start_method('spawn', force=True)
+except RuntimeError:
+    pass  # Already set
+
 # This function runs in a SEPARATE PROCESS - completely isolated from Qt
 def run_scan_process(credentials, result_queue, settings=None):
     try:
@@ -16,7 +22,7 @@ def run_scan_process(credentials, result_queue, settings=None):
         if 'Quick' in scan_depth:
             checks_to_run = ['s3', 'iam_users', 'security_groups']
         elif 'Deep' in scan_depth:
-            checks_to_run = ['s3', 'iam_users', 'iam_policies', 'security_groups', 'cloudtrail', 'root_account', 'rds']
+            checks_to_run = ['s3', 'iam_users', 'iam_policies', 'security_groups', 'cloudtrail', 'root_account', 'rds', 'ec2_instances']
         else:
             checks_to_run = ['s3', 'iam_users', 'iam_policies', 'security_groups', 'cloudtrail', 'root_account']
         
@@ -63,12 +69,14 @@ def run_scan_process(credentials, result_queue, settings=None):
                                     f'Bucket {name} is publicly accessible.',
                                     f'aws s3api put-public-access-block --bucket {name} --public-access-block-configuration BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true')
                     except: pass
+                    
+                    # Check for encryption
                     try:
                         s3.get_bucket_encryption(Bucket=name)
                     except: 
-                        add_finding('MEDIUM', f'S3 Not Encrypted: {name}', 'S3',
+                        add_finding('HIGH', f'S3 Not Encrypted: {name}', 'S3',
                             region,
-                            f'Bucket {name} has no encryption.',
+                            f'Bucket {name} has no server-side encryption enabled.',
                             f'aws s3api put-bucket-encryption --bucket {name} --server-side-encryption-configuration \'{{"Rules":[{{"ApplyServerSideEncryptionByDefault":{{"SSEAlgorithm":"AES256"}}}}]}}\'')
             except Exception as e:
                 result_queue.put({'type': 'error_check', 'msg': f'S3 check failed: {e}'})
@@ -81,13 +89,17 @@ def run_scan_process(credentials, result_queue, settings=None):
                 users = iam.list_users().get('Users', [])
                 for user in users:
                     username = user['UserName']
+                    
+                    # Check MFA
                     mfa = iam.list_mfa_devices(UserName=username).get('MFADevices', [])
                     if not mfa:
                         add_finding('HIGH', f'MFA Not Enabled: {username}', 'IAM', 'global',
                             f'User {username} has no MFA.',
                             f'aws iam enable-mfa-device --user-name {username} --serial-number <arn> --authentication-code1 <code1> --authentication-code2 <code2>')
+                    
+                    # Check access key age
                     keys = iam.list_access_keys(UserName=username).get('AccessKeyMetadata', [])
-                    from datetime import datetime
+                    from datetime import datetime, timezone
                     for key in keys:
                         created = key['CreateDate'].replace(tzinfo=None)
                         age = (datetime.now() - created).days
@@ -95,6 +107,16 @@ def run_scan_process(credentials, result_queue, settings=None):
                             add_finding('MEDIUM', f'Old Access Key: {username} ({age}d)', 'IAM', 'global',
                                 f'Key is {age} days old.',
                                 f'aws iam delete-access-key --user-name {username} --access-key-id {key["AccessKeyId"]}')
+                    
+                    # Check for inactive users (90+ days no password use)
+                    last_used = user.get('PasswordLastUsed')
+                    if last_used:
+                        last_used = last_used.replace(tzinfo=None)
+                        days = (datetime.now() - last_used).days
+                        if days > 90:
+                            add_finding('MEDIUM', f'IAM User Inactive 90+ Days: {username}', 'IAM', 'global',
+                                f'User {username} has not logged in for {days} days.',
+                                f'aws iam delete-login-profile --user-name {username}')
             except Exception as e:
                 result_queue.put({'type': 'error_check', 'msg': f'IAM check failed: {e}'})
 
@@ -135,6 +157,19 @@ def run_scan_process(credentials, result_queue, settings=None):
                                     region,
                                     f'Port {port} open to internet.',
                                     f'aws ec2 revoke-security-group-ingress --group-id {sg["GroupId"]} --protocol tcp --port {port} --cidr 0.0.0.0/0')
+                
+                # Check for EC2 instances with public IPs
+                reservations = ec2.describe_instances().get('Reservations', [])
+                for r in reservations:
+                    for instance in r.get('Instances', []):
+                        if instance.get('PublicIpAddress'):
+                            instance_id = instance.get('InstanceId')
+                            az = instance.get('Placement', {}).get('AvailabilityZone', region)
+                            instance_region = az[:-1] if az else region
+                            add_finding('MEDIUM', f'EC2 Instance Has Public IP: {instance_id}', 'EC2',
+                                instance_region,
+                                f'EC2 instance {instance_id} directly exposed to internet via public IP.',
+                                f'aws ec2 modify-instance-attribute --instance-id {instance_id} --no-source-dest-check')
             except Exception as e:
                 result_queue.put({'type': 'error_check', 'msg': f'SG check failed: {e}'})
 
@@ -166,10 +201,26 @@ def run_scan_process(credentials, result_queue, settings=None):
             try:
                 iam = session.client('iam')
                 summary = iam.get_account_summary().get('SummaryMap', {})
+                
+                # Check root MFA
                 if summary.get('AccountMFAEnabled', 0) == 0:
-                    add_finding('CRITICAL', 'Root Account MFA Disabled', 'IAM', 'global',
+                    add_finding('CRITICAL', 'Root Account MFA Disabled', 'Root Account', 'global',
                         'Root account has no MFA — highest risk finding.',
                         'Enable MFA via AWS Console > Security Credentials')
+                
+                # Check for root access keys
+                if summary.get('AccountAccessKeysPresent', 0) > 0:
+                    add_finding('CRITICAL', 'Root Account Has Active Access Keys', 'Root Account', 'global',
+                        'Root account access keys should never exist. Immediate security risk.',
+                        'Delete root access keys immediately from AWS Console → My Security Credentials')
+                
+                # Check for password policy
+                try:
+                    iam.get_account_password_policy()
+                except:
+                    add_finding('HIGH', 'No IAM Password Policy Configured', 'IAM', 'global',
+                        'Account has no password policy — weak passwords allowed.',
+                        'aws iam update-account-password-policy --minimum-password-length 14 --require-symbols --require-numbers --require-uppercase-characters --require-lowercase-characters')
             except Exception as e:
                 result_queue.put({'type': 'error_check', 'msg': f'Root check failed: {e}'})
 
