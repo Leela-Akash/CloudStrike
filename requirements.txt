@@ -1,0 +1,26 @@
+# CloudStrike - Cloud Security Auditor
+# Python 3.11+ required
+
+# Core GUI Framework
+PyQt6>=6.6.0
+PyQt6-WebEngine>=6.6.0
+
+# AWS SDK
+boto3>=1.34.0
+
+# Azure SDK (optional - only needed for Azure scanning)
+azure-identity>=1.15.0
+azure-mgmt-resource>=23.0.0
+azure-mgmt-storage>=21.1.0
+azure-mgmt-compute>=30.5.0
+azure-mgmt-network>=25.2.0
+
+# GCP SDK (optional - only needed for GCP scanning)
+google-cloud-storage>=2.14.0
+google-auth>=2.27.0
+
+# PDF Report Generation
+reportlab>=4.0.0
+
+# Data Visualization
+pyqtgraph>=0.13.3

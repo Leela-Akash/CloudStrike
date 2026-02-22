@@ -29,12 +29,25 @@ CloudStrike is a Windows desktop tool that goes beyond traditional cloud securit
 
 ## ⚙️ Installation
 
-**Step 1 — Clone or download the project:**
+**Step 1 — Clone the repository:**
 ```bash
+git clone <repository-url>
 cd CloudStrike_Final_Version
 ```
 
-**Step 2 — Install dependencies:**
+**Step 2 — Install all dependencies:**
+
+**Option A - Using requirements.txt (recommended):**
+```bash
+pip install -r requirements.txt
+```
+
+**Option B - Manual installation (single command):**
+```bash
+pip install PyQt6 PyQt6-WebEngine boto3 reportlab pyqtgraph azure-identity azure-mgmt-resource azure-mgmt-storage azure-mgmt-compute azure-mgmt-network google-cloud-storage google-auth
+```
+
+**Option C - AWS only (minimal install):**
 ```bash
 pip install PyQt6 PyQt6-WebEngine boto3 reportlab pyqtgraph
 ```
@@ -43,6 +56,8 @@ pip install PyQt6 PyQt6-WebEngine boto3 reportlab pyqtgraph
 ```bash
 python cloudstrike_ui.py
 ```
+
+> 💡 **Note:** Azure and GCP packages are optional. If you only scan AWS, use Option C for minimal installation.
 
 ---
 
