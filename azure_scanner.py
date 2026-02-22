@@ -16,12 +16,26 @@ def run_azure_scan_process(credentials, result_queue):
         from azure.mgmt.compute import ComputeManagementClient
         from azure.mgmt.network import NetworkManagementClient
 
-        credential = ClientSecretCredential(
-            tenant_id=credentials['tenant_id'],
-            client_id=credentials['client_id'],
-            client_secret=credentials['client_secret']
-        )
-        subscription_id = credentials['subscription_id']
+        # Test credentials first
+        try:
+            credential = ClientSecretCredential(
+                tenant_id=credentials['tenant_id'],
+                client_id=credentials['client_id'],
+                client_secret=credentials['client_secret']
+            )
+            subscription_id = credentials['subscription_id']
+            # Test with a simple API call
+            test_client = ResourceManagementClient(credential, subscription_id)
+            list(test_client.resource_groups.list())
+        except Exception as e:
+            error_str = str(e)
+            if 'AADSTS' in error_str or 'authentication' in error_str.lower() or 'unauthorized' in error_str.lower():
+                result_queue.put({'type': 'fatal', 'msg': f'❌ AZURE AUTHENTICATION FAILED\n\nInvalid Azure credentials. Please check:\n• Client ID\n• Client Secret\n• Tenant ID\n• Subscription ID\n\nError: {error_str}'})
+                return
+            else:
+                result_queue.put({'type': 'fatal', 'msg': f'❌ AZURE CONNECTION FAILED\n\n{error_str}'})
+                return
+        
         findings = []
 
         def add_finding(severity, title, service, region, description, remediation):

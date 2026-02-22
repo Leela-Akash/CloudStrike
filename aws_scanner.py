@@ -44,6 +44,24 @@ def run_scan_process(credentials, result_queue, settings=None):
             findings.append(finding)
             result_queue.put({'type': 'finding', 'data': finding})
         
+        # Test credentials first
+        try:
+            test_session = boto3.Session(
+                aws_access_key_id=credentials['access_key'],
+                aws_secret_access_key=credentials['secret_key'],
+                region_name=credentials['region']
+            )
+            sts = test_session.client('sts')
+            sts.get_caller_identity()
+        except Exception as e:
+            error_str = str(e)
+            if 'InvalidClientTokenId' in error_str or 'SignatureDoesNotMatch' in error_str or 'AuthFailure' in error_str:
+                result_queue.put({'type': 'fatal', 'msg': f'❌ AUTHENTICATION FAILED\n\nInvalid AWS credentials. Please check:\n• Access Key ID\n• Secret Access Key\n• Region\n\nError: {error_str}'})
+                return
+            else:
+                result_queue.put({'type': 'fatal', 'msg': f'❌ CONNECTION FAILED\n\n{error_str}'})
+                return
+        
         for region in regions:
             result_queue.put({'type': 'progress', 'pct': 10, 'msg': f'SCANNING REGION: {region}'})
         session = boto3.Session(

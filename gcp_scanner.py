@@ -148,22 +148,38 @@ def run_gcp_scan_process(credentials, result_queue):
 
         result_queue.put({'type': 'progress', 'pct': 5, 'msg': 'CONNECTING TO GCP...'})
 
-        # Parse credentials
+        # Parse and test credentials
         if credentials.get('credentials_json'):
-            creds_info = json.loads(credentials['credentials_json'])
-            gcp_creds = service_account.Credentials.from_service_account_info(
-                creds_info,
-                scopes=['https://www.googleapis.com/auth/cloud-platform']
-            )
-            project_id = creds_info.get('project_id', credentials.get('project_id', ''))
+            try:
+                creds_info = json.loads(credentials['credentials_json'])
+                gcp_creds = service_account.Credentials.from_service_account_info(
+                    creds_info,
+                    scopes=['https://www.googleapis.com/auth/cloud-platform']
+                )
+                project_id = creds_info.get('project_id', credentials.get('project_id', ''))
+            except json.JSONDecodeError:
+                result_queue.put({'type': 'fatal', 'msg': '✗ GCP AUTHENTICATION FAILED\n\nInvalid service account JSON format. Please check:\n• JSON is properly formatted\n• Contains all required fields\n• No extra characters or line breaks'})
+                return
+            except Exception as e:
+                result_queue.put({'type': 'fatal', 'msg': f'✗ GCP CREDENTIAL ERROR\n\n{str(e)}'})
+                return
         else:
             use_demo = True
 
         if not use_demo:
-            # Test connection
-            storage_client = storage.Client(credentials=gcp_creds, project=project_id)
-            list(storage_client.list_buckets(max_results=1))
-            result_queue.put({'type': 'progress', 'pct': 10, 'msg': 'GCP CONNECTION SUCCESSFUL'})
+            # Test connection with actual API call
+            try:
+                storage_client = storage.Client(credentials=gcp_creds, project=project_id)
+                list(storage_client.list_buckets(max_results=1))
+                result_queue.put({'type': 'progress', 'pct': 10, 'msg': 'GCP CONNECTION SUCCESSFUL'})
+            except Exception as e:
+                error_str = str(e)
+                if 'invalid_grant' in error_str or 'unauthorized' in error_str.lower() or 'permission denied' in error_str.lower():
+                    result_queue.put({'type': 'fatal', 'msg': f'✗ GCP AUTHENTICATION FAILED\n\nInvalid GCP credentials. Please check:\n• Service account JSON is correct\n• Service account has required permissions\n• Project ID matches\n\nError: {error_str}'})
+                    return
+                else:
+                    result_queue.put({'type': 'fatal', 'msg': f'✗ GCP CONNECTION FAILED\n\n{error_str}'})
+                    return
 
     except Exception as e:
         use_demo = True

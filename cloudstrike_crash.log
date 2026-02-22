@@ -785,3 +785,39 @@ PermissionError: [WinError 5] Access is denied
 2026-02-21 23:54:04,966 — DEBUG — Credentials row found: True
 2026-02-21 23:54:05,380 — DEBUG — All signals connected, calling scanner.start()
 2026-02-21 23:54:05,380 — DEBUG — Scanner thread started successfully
+2026-02-22 10:24:01,702 — DEBUG — start_scan called
+2026-02-22 10:24:01,703 — DEBUG — Credentials row found: True
+2026-02-22 10:24:02,580 — DEBUG — All signals connected, calling scanner.start()
+2026-02-22 10:24:02,580 — DEBUG — Scanner thread started successfully
+2026-02-22 10:26:11,559 — DEBUG — start_scan called
+2026-02-22 10:26:11,560 — DEBUG — Credentials row found: True
+2026-02-22 10:26:11,560 — DEBUG — All signals connected, calling scanner.start()
+2026-02-22 10:26:11,560 — DEBUG — Scanner thread started successfully
+2026-02-22 10:27:19,963 — DEBUG — start_scan called
+2026-02-22 10:27:19,965 — DEBUG — Credentials row found: True
+2026-02-22 10:27:19,966 — DEBUG — All signals connected, calling scanner.start()
+2026-02-22 10:27:19,966 — DEBUG — Scanner thread started successfully
+2026-02-22 10:29:01,433 — DEBUG — start_scan called
+2026-02-22 10:29:01,434 — DEBUG — Credentials row found: True
+2026-02-22 10:29:01,435 — DEBUG — All signals connected, calling scanner.start()
+2026-02-22 10:29:01,435 — DEBUG — Scanner thread started successfully
+2026-02-22 10:29:22,451 — DEBUG — start_scan called
+2026-02-22 10:29:22,453 — DEBUG — Credentials row found: True
+2026-02-22 10:29:22,454 — DEBUG — All signals connected, calling scanner.start()
+2026-02-22 10:29:22,454 — DEBUG — Scanner thread started successfully
+2026-02-22 10:30:06,955 — DEBUG — start_scan called
+2026-02-22 10:30:06,957 — DEBUG — Credentials row found: True
+2026-02-22 10:30:07,271 — DEBUG — All signals connected, calling scanner.start()
+2026-02-22 10:30:07,272 — DEBUG — Scanner thread started successfully
+2026-02-22 10:30:22,979 — DEBUG — start_scan called
+2026-02-22 10:30:22,980 — DEBUG — Credentials row found: True
+2026-02-22 10:30:22,981 — DEBUG — All signals connected, calling scanner.start()
+2026-02-22 10:30:22,981 — DEBUG — Scanner thread started successfully
+2026-02-22 10:30:34,323 — DEBUG — start_scan called
+2026-02-22 10:30:34,324 — DEBUG — Credentials row found: True
+2026-02-22 10:30:34,325 — DEBUG — All signals connected, calling scanner.start()
+2026-02-22 10:30:34,325 — DEBUG — Scanner thread started successfully
+2026-02-22 10:37:50,281 — DEBUG — start_scan called
+2026-02-22 10:37:50,282 — DEBUG — Credentials row found: True
+2026-02-22 10:37:50,283 — DEBUG — All signals connected, calling scanner.start()
+2026-02-22 10:37:50,283 — DEBUG — Scanner thread started successfully
